@@ -489,7 +489,7 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 .sh-sec-title { margin: 0 0 14px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
 .sh-subheading { font-size: 12px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .09em; margin: 22px 0 10px; }
 .sh-subheading:first-child { margin-top: 0; }
-.sh-summary-p { font-size: var(--s-read); line-height: 1.7; color: var(--text); margin: 4px 0 12px; text-wrap: wrap; }
+.sh-summary-p { font-size: var(--s-read); line-height: 1.7; color: var(--text); margin: 4px 0 12px; }
 .sh-summary-p code { font-size: .9em; background: var(--neutral-soft); border-radius: 5px; padding: 1px 5px; }
 
 /* Label – value rows */
@@ -566,6 +566,77 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 .ev-badge.dinhchinh { background: var(--ev-dinhchinh-bg); color: var(--ev-dinhchinh-c); }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* =====================================================================
+   PHƯƠNG ÁN A — CHUẨN MỰC AN TOÀN (dán cuối style.css)
+   ===================================================================== */
+
+/* 1. Typography: text-align: left + text-wrap: wrap */
+body, main, .masthead, .sheet-scroll, .site-foot { text-align: left; }
+p, li, h1, h2, h3,
+.masthead-sub, .sh-summary-p, .sh-sub, .ctx, .hit,
+.quote p, .vs-col-text, .vs-fb-desc { text-align: left; text-wrap: wrap; }
+
+/* 2. Tương phản cao (WCAG AA) */
+:root { --text-3: #5E574F; --text-4: #8A8276; --gold-text: #7A5C2E; }
+:root[data-theme="dark"] { --text-3: #B0A89B; --text-4: #8A8276; }
+
+/* 3. Vùng chạm ≥ 44px */
+.icon-btn { width: 44px; height: 44px; }
+.fav { top: 6px; right: 4px; width: 44px; height: 44px; }
+.fav::after { inset: 0; }
+.card > button.open { padding-right: 52px; }
+.search .clear { right: 2px; width: 44px; height: 44px; }
+.chip { height: 38px; }
+.chip::after { inset: -3px 0; }
+.btn-hdr-action { min-height: 44px; }
+.sheet-bar-btn { width: 40px; height: 40px; }
+.sheet-bar-btn::after { inset: -2px; }
+.sh-toc-item { min-height: 46px; display: inline-flex; align-items: center; padding: 0; }
+.sh-pill { position: relative; min-height: 40px; }
+.sh-pill::after { content: ''; position: absolute; inset: -2px 0; }
+.sh-inline-link { display: inline-block; padding: 11px 0; margin: -11px 0; }
+.vs-star-btn { width: 44px; height: 44px; }
+.vs-fb-input, .vs-fb-send { height: 44px; }
+.vs-back-to-top { min-height: 44px; }
+
+/* 4. Gỡ nội dung trùng lặp & ẩn khối chưa thu thập */
+#btnHdrMethodology { display: none; }   /* trùng nút (i) trên topbar */
+.vs-foot-stats { display: none; }       /* trùng số đếm đầu trang & tiêu đề mục */
+.vs-feedback { display: none; }         /* tạm ẩn khối đánh giá theo Cách C để chân trang sạch sẽ */
+.masthead-eyebrow,
+.masthead-title,
+.masthead-orn { display: none; }        /* trùng "Việt Sử · Thực chứng" trên topbar */
+.sheet-scroll:has(.sh-lead .bi) #sh-sec-tongquan > .sh-summary-p:first-child { display: none; }
+.sheet-scroll:has(.sh-lead .bi) #sh-sec-tongquan > .sh-rows { margin-top: 0; }
+
+/* 5. Layout — Desktop (≥ 681px) */
+.topbar-inner, main, .site-foot-inner { max-width: 760px; }
+main { padding: 8px 24px 24px; }
+.topbar-inner { padding: 0 24px; }
+.filters { margin: 0 -24px 8px; padding: 12px 24px; }
+.chips { margin: 12px -24px 0; padding: 0 24px; scroll-padding-inline: 24px; }
+.masthead { padding: 16px 0 8px; margin: 0; }
+.masthead-sub { max-width: 62ch; margin: 0 0 8px; font-size: 16px; line-height: 1.65; color: var(--text-2); }
+.masthead-actions,
+.masthead-links { display: flex; justify-content: flex-start; flex-wrap: wrap; gap: 0 8px; margin: 0 0 0 -12px; }
+.discover { margin-bottom: 8px; }
+.sec { margin: 16px 0 8px; }
+.grp-t { margin: 24px 0 8px; }
+.grp-t:first-child { margin-top: 8px; }
+
+/* 6. Layout — Mobile (≤ 680px) */
+@media (max-width: 680px) {
+  main { padding: 4px 16px 16px; }
+  .topbar-inner { padding: 0 16px; }
+  .filters { margin: 0 -16px 8px; padding: 8px 16px; }
+  .chips { margin: 8px -16px 0; padding: 0 16px; scroll-padding-inline: 16px; }
+  .masthead { padding: 8px 0 0; }
+  .masthead-sub { font-size: 15px; line-height: 1.6; margin-bottom: 4px; }
+  .app-subtitle { font-size: 12px; }
+  .sec { margin: 12px 0 8px; }
+  .sec h2 { font-size: 20px; }
+}
 
 </style>
 </head>
@@ -669,29 +740,28 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 <footer class="site-foot" id="siteFoot" aria-labelledby="colophon-title">
   <div class="site-foot-inner">
     
-    <!-- 1. KHỐI TƯƠNG TÁC / ĐÁNH GIÁ SỬ LIỆU (HỌC TẬP TỪ .rt-a CỦA GIA PHẢ) -->
-    <section class="vs-feedback" id="vsFeedback" aria-labelledby="fb-title">
+    <!-- 1. KHỐI TƯƠNG TÁC / ĐÁNH GIÁ SỬ LIỆU (TINH GỌN & TẠM ẨN THEO CÁCH C: CHÂN TRANG SẠCH SẼ) -->
+    <section class="vs-feedback" id="vsFeedback" aria-labelledby="fb-title" hidden>
       <div class="vs-fb-row">
         <div class="vs-fb-ask">
-          <h2 class="vs-fb-title" id="fb-title">Đóng góp tư liệu &amp; phản biện sử liệu</h2>
-          <p class="vs-fb-desc">Lịch sử luôn cần được soi chiếu qua nhiều nguồn để tiệm cận chân lý. Bạn đánh giá thế nào về độ sâu và tính xác thực sử liệu?</p>
+          <h2 class="vs-fb-title" id="fb-title">Đánh giá &amp; Góp ý</h2>
         </div>
         <div class="vs-fb-stars" id="fbStars" role="group" aria-label="Đánh giá chất lượng sử liệu">
-          <button type="button" class="vs-star-btn" data-star="1" aria-label="1 sao: Cần bổ sung nhiều">★</button>
-          <button type="button" class="vs-star-btn" data-star="2" aria-label="2 sao: Chưa đủ sâu">★</button>
-          <button type="button" class="vs-star-btn" data-star="3" aria-label="3 sao: Tương đối tốt">★</button>
-          <button type="button" class="vs-star-btn" data-star="4" aria-label="4 sao: Rất tốt, chuẩn xác">★</button>
-          <button type="button" class="vs-star-btn" data-star="5" aria-label="5 sao: Xuất sắc, sâu sắc">★</button>
+          <button type="button" class="vs-star-btn" data-star="1" aria-label="1 sao">★</button>
+          <button type="button" class="vs-star-btn" data-star="2" aria-label="2 sao">★</button>
+          <button type="button" class="vs-star-btn" data-star="3" aria-label="3 sao">★</button>
+          <button type="button" class="vs-star-btn" data-star="4" aria-label="4 sao">★</button>
+          <button type="button" class="vs-star-btn" data-star="5" aria-label="5 sao">★</button>
         </div>
         <p class="vs-fb-label" id="fbStarLabel" aria-live="polite"></p>
       </div>
       
       <div class="vs-fb-box" id="fbBox" hidden>
         <div class="vs-fb-form">
-          <input type="text" id="fbInput" class="vs-fb-input" maxlength="150" placeholder="Ghi chú góp ý sử liệu hoặc bổ sung nguồn tư liệu…" aria-label="Góp ý sử liệu">
-          <button type="button" id="fbSendBtn" class="vs-fb-send">Gửi góp ý</button>
+          <input type="text" id="fbInput" class="vs-fb-input" maxlength="150" placeholder="Góp ý sử liệu…" aria-label="Góp ý sử liệu">
+          <button type="button" id="fbSendBtn" class="vs-fb-send">Gửi</button>
         </div>
-        <p class="vs-fb-sent" id="fbSentMsg" hidden>Đã lưu ghi chú vào bộ nhớ thiết bị của bạn. Chân thành cảm ơn đóng góp sử liệu!</p>
+        <p class="vs-fb-sent" id="fbSentMsg" hidden>Đã ghi nhận góp ý của bạn!</p>
       </div>
     </section>
 
@@ -2044,11 +2114,11 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
      FOOTER INTERACTIVITY (RATING & FEEDBACK)
      ========================================================= */
   var STAR_LABELS = {
-    1: 'Cần bổ sung nhiều nguồn tư liệu',
-    2: 'Chưa đủ chiều sâu phân tích',
-    3: 'Tương đối đầy đủ, dễ tra cứu',
-    4: 'Rất tốt, thông tin chuẩn xác và khách quan',
-    5: 'Xuất sắc! Sử liệu sâu sắc, giàu giá trị tham khảo'
+    1: 'Cần bổ sung',
+    2: 'Chưa đủ sâu',
+    3: 'Đầy đủ',
+    4: 'Rất tốt',
+    5: 'Xuất sắc'
   };
 
   function initFooter() {
