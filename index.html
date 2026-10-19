@@ -134,13 +134,120 @@
     background: var(--glass); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--hair);
   }
-  .topbar-inner { height: var(--header-h); max-width: 720px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 10px; }
-  .app-title { flex: 1; font-size: 17px; font-weight: var(--w-head); letter-spacing: var(--ls-head); }
+  .topbar-inner {
+    height: var(--header-h); max-width: 720px; margin: 0 auto; padding: 0 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .app-brand {
+    display: flex; align-items: center; gap: 9px; cursor: pointer; user-select: none;
+  }
+  .app-emblem {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: var(--orange-soft); color: var(--orange);
+    display: grid; place-items: center; flex: none;
+  }
+  .app-title-group {
+    display: flex; flex-direction: column; justify-content: center; line-height: 1.15;
+  }
+  .app-title {
+    font-size: 16px; font-weight: 700; letter-spacing: -0.015em; color: var(--text);
+  }
+  .app-subtitle {
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3);
+  }
+  .topbar-actions {
+    display: flex; align-items: center; gap: 6px;
+  }
   .icon-btn { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--card); border: 1px solid var(--hair); color: var(--text-2); }
   .icon-btn:active { transform: scale(.94); }
   .icon-btn svg { width: 17px; height: 17px; }
 
-  main { max-width: 720px; margin: 0 auto; padding: 12px 16px calc(var(--tab-h) + var(--safe-b) + 24px); }
+  /* ---------- Hero Masthead ---------- */
+  .masthead {
+    text-align: center;
+    padding: 16px 8px 20px;
+    margin-bottom: 4px;
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .masthead-eyebrow {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ac);
+    margin-bottom: 6px;
+  }
+  .masthead-title {
+    margin: 0 0 8px;
+    font-size: clamp(22px, 6vw, 27px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    color: var(--text);
+  }
+  .masthead-orn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 6px 0 10px;
+  }
+  .vs-orn-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--orange);
+  }
+  .vs-orn-mark i {
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--hair-strong));
+  }
+  .vs-orn-mark i:last-child {
+    background: linear-gradient(90deg, var(--hair-strong), transparent);
+  }
+  .masthead-sub {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-2);
+    max-width: 540px;
+    margin: 0 auto 14px;
+    text-wrap: pretty;
+  }
+  .masthead-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+  .btn-hdr-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--hair-strong);
+    color: var(--text);
+    font-size: 12.5px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: var(--shadow-1);
+    transition: all .2s ease;
+  }
+  .btn-hdr-action:hover {
+    border-color: var(--ac);
+    color: var(--ac);
+  }
+  .btn-hdr-action:active {
+    transform: scale(.96);
+  }
+  .btn-hdr-action svg {
+    color: var(--orange);
+    flex: none;
+  }
+
+  main { max-width: 720px; margin: 0 auto; padding: 10px 16px 20px; }
 
   /* ---------- Search ---------- */
   .search { position: relative; margin-bottom: 10px; }
@@ -206,6 +313,278 @@
   .empty { text-align: center; padding: 48px 20px; color: var(--text-3); font-size: 13.5px; }
   .empty b { display: block; color: var(--text); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
 
+  /* ---------- Scholarly Colophon Footer ---------- */
+  .site-foot {
+    border-top: 1px solid var(--hair);
+    background: var(--card);
+    margin-top: 24px;
+    padding: 30px 16px calc(var(--tab-h) + var(--safe-b) + 28px);
+  }
+  .site-foot-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Feedback Widget (Học tập từ .rt-a của Gia Phả) */
+  .vs-feedback {
+    background: var(--card-2);
+    border: 1px solid var(--hair);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 26px;
+    box-shadow: var(--shadow-1);
+  }
+  .vs-fb-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .vs-fb-title {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .vs-fb-desc {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--text-2);
+  }
+  .vs-fb-stars {
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 2px;
+  }
+  .vs-star-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--card);
+    border: 1px solid var(--hair);
+    color: var(--text-3);
+    font-size: 18px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all .15s ease;
+    line-height: 1;
+  }
+  .vs-star-btn:hover,
+  .vs-star-btn.active {
+    color: var(--orange);
+    background: var(--orange-soft);
+    border-color: var(--orange);
+    transform: scale(1.06);
+  }
+  .vs-fb-label {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--orange);
+    min-height: 16px;
+  }
+  .vs-fb-box {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--hair);
+  }
+  .vs-fb-form {
+    display: flex;
+    gap: 8px;
+  }
+  .vs-fb-input {
+    flex: 1;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--hair);
+    background: var(--card);
+    color: var(--text);
+    padding: 0 12px;
+    font: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .vs-fb-input:focus {
+    border-color: var(--ac);
+  }
+  .vs-fb-send {
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 10px;
+    background: var(--ac);
+    color: var(--ac-on);
+    font-weight: 600;
+    font-size: 12.5px;
+    cursor: pointer;
+    flex: none;
+    transition: opacity .15s;
+  }
+  .vs-fb-send:active {
+    opacity: .8;
+  }
+  .vs-fb-sent {
+    margin: 8px 0 0;
+    font-size: 12px;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+
+  /* Colophon 3-Column Grid */
+  .vs-colophon-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-bottom: 26px;
+  }
+  @media (min-width: 600px) {
+    .vs-colophon-grid {
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 18px;
+    }
+  }
+  .vs-col-eyebrow {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ac);
+  }
+  .vs-col-text {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--text-2);
+  }
+  .vs-col-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-2);
+  }
+  .vs-col-list li {
+    position: relative;
+    padding-left: 14px;
+    margin-bottom: 7px;
+  }
+  .vs-col-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+  .vs-col-list strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Byline */
+  .vs-author-name {
+    margin: 0 0 2px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--text);
+  }
+  .vs-author-role {
+    margin: 0 0 10px;
+    font-size: 11.5px;
+    color: var(--text-3);
+    line-height: 1.4;
+  }
+
+  /* Academic Facts Definition List */
+  .vs-facts {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+  }
+  .vs-facts div {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .vs-facts dt {
+    color: var(--text-3);
+  }
+  .vs-facts dd {
+    margin: 0;
+    color: var(--text);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  /* Bottom Bar */
+  .vs-foot-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hair);
+  }
+  @media (min-width: 500px) {
+    .vs-foot-bar {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .vs-foot-copy small {
+    display: block;
+    font-size: 12px;
+    color: var(--text-2);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .vs-foot-copy small strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .vs-foot-stats {
+    font-size: 11.5px;
+    color: var(--text-2);
+    font-feature-settings: 'tnum' 1;
+  }
+  .vs-foot-stats span {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .vs-back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 10px;
+    background: var(--card-2);
+    border: 1px solid var(--hair);
+    color: var(--text-2);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: all .15s ease;
+  }
+  .vs-back-to-top:hover {
+    border-color: var(--ac);
+    color: var(--ac);
+  }
+  .vs-back-to-top:active {
+    transform: scale(.96);
+  }
+  .vs-back-to-top svg {
+    flex: none;
+  }
+
   /* ---------- Tab bar ---------- */
   .tabbar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding-bottom: var(--safe-b);
@@ -213,9 +592,25 @@
     border-top: 1px solid var(--hair);
   }
   .tabbar-inner { max-width: 720px; margin: 0 auto; height: var(--tab-h); display: grid; grid-template-columns: repeat(4, 1fr); }
-  .tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10.5px; font-weight: 600; color: var(--text-3); text-align: center; }
+  .tab {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2px; font-size: 10.5px; font-weight: 600; color: var(--text-3); text-align: center;
+    transition: color .2s ease;
+  }
   .tab svg { width: 22px; height: 22px; }
   .tab.active { color: var(--ac); }
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
 
   /* ---------- Bottom sheet ---------- */
   .backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(0, 0, 0, .35); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
@@ -626,14 +1021,55 @@
 
 <header class="topbar">
   <div class="topbar-inner">
-    <div class="app-title">Việt Sử</div>
-    <button class="icon-btn" id="themeToggle" aria-label="Chuyển chế độ Sáng/Tối">
-      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
-    </button>
+    <div class="app-brand" id="brandTop" title="Việt Sử Toàn Thư">
+      <span class="app-emblem" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg>
+      </span>
+      <div class="app-title-group">
+        <div class="app-title">Việt Sử</div>
+        <div class="app-subtitle">Thực chứng</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="infoBtn" aria-label="Thông tin &amp; Phương pháp luận" title="Thông tin dự án">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="Chuyển chế độ Sáng/Tối" title="Đổi giao diện">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+      </button>
+    </div>
   </div>
 </header>
 
 <main>
+  <div class="masthead" id="heroMasthead">
+    <div class="masthead-eyebrow">SỬ LIỆU THỰC CHỨNG · ĐỐI CHIẾU ĐA NGUỒN</div>
+    <h1 class="masthead-title">VIỆT SỬ TOÀN THƯ</h1>
+    <div class="masthead-orn" aria-hidden="true">
+      <span class="vs-orn-mark">
+        <i></i>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+          <path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z" fill="currentColor"/>
+        </svg>
+        <i></i>
+      </span>
+    </div>
+    <p class="masthead-sub">
+      Hơn bốn ngàn năm dựng nước và giữ nước đúc kết qua 19 thời kỳ thăng trầm, 70 nhân vật lịch sử và 46 trận chiến định mệnh non sông. Khảo cứu trên tinh thần tôn trọng sự thật và đối chiếu đa nguồn sử liệu.
+    </p>
+    <div class="masthead-actions" aria-label="Lối tắt nghiên cứu">
+      <button type="button" class="btn-hdr-action" id="btnHdrMethodology">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span>Phương pháp luận</span>
+      </button>
+      <button type="button" class="btn-hdr-action" id="btnHdrGuide">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Hướng dẫn tra cứu</span>
+      </button>
+    </div>
+  </div>
+
   <div class="search" id="searchBox">
     <svg class="s-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     <input id="q" type="search" inputmode="search" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Tìm thời kỳ, nhân vật, trận đánh…" aria-label="Tìm kiếm">
@@ -664,6 +1100,85 @@
     <div id="savedList"></div>
   </section>
 </main>
+
+<footer class="site-foot" id="siteFoot" aria-labelledby="colophon-title">
+  <div class="site-foot-inner">
+    
+    <!-- 1. KHỐI TƯƠNG TÁC / ĐÁNH GIÁ SỬ LIỆU (HỌC TẬP TỪ .rt-a CỦA GIA PHẢ) -->
+    <section class="vs-feedback" id="vsFeedback" aria-labelledby="fb-title">
+      <div class="vs-fb-row">
+        <div class="vs-fb-ask">
+          <h2 class="vs-fb-title" id="fb-title">Đóng góp tư liệu &amp; phản biện sử liệu</h2>
+          <p class="vs-fb-desc">Lịch sử luôn cần được soi chiếu qua nhiều nguồn để tiệm cận chân lý. Bạn đánh giá thế nào về độ sâu và tính xác thực sử liệu?</p>
+        </div>
+        <div class="vs-fb-stars" id="fbStars" role="group" aria-label="Đánh giá chất lượng sử liệu">
+          <button type="button" class="vs-star-btn" data-star="1" aria-label="1 sao: Cần bổ sung nhiều">★</button>
+          <button type="button" class="vs-star-btn" data-star="2" aria-label="2 sao: Chưa đủ sâu">★</button>
+          <button type="button" class="vs-star-btn" data-star="3" aria-label="3 sao: Tương đối tốt">★</button>
+          <button type="button" class="vs-star-btn" data-star="4" aria-label="4 sao: Rất tốt, chuẩn xác">★</button>
+          <button type="button" class="vs-star-btn" data-star="5" aria-label="5 sao: Xuất sắc, sâu sắc">★</button>
+        </div>
+        <p class="vs-fb-label" id="fbStarLabel" aria-live="polite"></p>
+      </div>
+      
+      <div class="vs-fb-box" id="fbBox" hidden>
+        <div class="vs-fb-form">
+          <input type="text" id="fbInput" class="vs-fb-input" maxlength="150" placeholder="Ghi chú góp ý sử liệu hoặc bổ sung nguồn tư liệu…" aria-label="Góp ý sử liệu">
+          <button type="button" id="fbSendBtn" class="vs-fb-send">Gửi góp ý</button>
+        </div>
+        <p class="vs-fb-sent" id="fbSentMsg" hidden>Cảm ơn bạn! Đóng góp sử liệu đã được ghi nhận vào bộ nhớ.</p>
+      </div>
+    </section>
+
+    <!-- 2. KHỐI COLOPHON HỌC THUẬT (3 CỘT) -->
+    <div class="vs-colophon-grid">
+      <section class="vs-col vs-col-about">
+        <p class="vs-col-eyebrow" id="colophon-title">Về Việt Sử</p>
+        <p class="vs-col-text">
+          Công trình tra cứu độc lập phi lợi nhuận nhằm hệ thống hóa dòng chảy lịch sử Việt Nam qua lăng kính khoa học thực chứng. Dữ liệu tập trung vào các mắt xích bước ngoặt, tính cách nhân vật và các luồng tranh luận học thuật trung thực.
+        </p>
+      </section>
+
+      <section class="vs-col vs-col-sources">
+        <p class="vs-col-eyebrow">Căn cứ sử liệu</p>
+        <ul class="vs-col-list">
+          <li><strong>Đại Việt Sử Ký Toàn Thư</strong> (Ngô Sĩ Liên &amp; Quốc Sử Viện Hậu Lê)</li>
+          <li><strong>Khâm Định Việt Sử Thông Giám Cương Mục</strong> (Quốc Sử Quán triều Nguyễn)</li>
+          <li><strong>Việt Sử Tiêu Án</strong> (Ngô Thì Sĩ, 1775)</li>
+          <li><strong>Minh Thực Lục &amp; Thanh Thực Lục</strong> (Tư liệu ngoại giao đối chiếu)</li>
+          <li><strong>Khảo cổ học &amp; Nghiên cứu đương đại</strong> (Viện Sử học Việt Nam)</li>
+        </ul>
+      </section>
+
+      <section class="vs-col vs-col-byline">
+        <p class="vs-col-eyebrow">Người biên soạn</p>
+        <p class="vs-author-name">Trường Vũ</p>
+        <p class="vs-author-role">Khảo cứu &amp; Hệ thống hóa sử liệu thực chứng</p>
+        <dl class="vs-facts">
+          <div><dt>Khởi soạn</dt><dd>Năm 2026</dd></div>
+          <div><dt>Phương pháp</dt><dd>Thực chứng &amp; Đối chiếu đa nguồn</dd></div>
+          <div><dt>Phiên bản</dt><dd>v2.4 (Cập nhật 10/2026)</dd></div>
+          <div><dt>Kiến trúc</dt><dd>Single-file Offline-ready</dd></div>
+        </dl>
+      </section>
+    </div>
+
+    <!-- 3. THANH ĐÁY & NÚT LÊN ĐẦU TRANG -->
+    <div class="vs-foot-bar">
+      <div class="vs-foot-copy">
+        <small>Copyright © 2026 · Việt Sử · Người biên soạn: <strong>Trường Vũ</strong></small>
+        <div class="vs-foot-stats">
+          <span>19 Thời kỳ</span> · <span>70 Nhân vật</span> · <span>46 Trận đánh</span>
+        </div>
+      </div>
+      <button type="button" class="vs-back-to-top" id="backToTopBtn" aria-label="Cuộn lên đầu trang">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+        <span>Lên đầu trang</span>
+      </button>
+    </div>
+
+  </div>
+</footer>
 
 <nav class="tabbar" aria-label="Điều hướng chính">
   <div class="tabbar-inner" id="tabbar">
@@ -8751,6 +9266,9 @@
 
   function render() {
     var searching = state.q.trim().length > 0;
+    var masthead = $('#heroMasthead');
+    if (masthead) masthead.style.display = searching ? 'none' : '';
+
     $$('.view').forEach(function (v) { v.classList.remove('active'); });
     $(searching ? '#view-search' : '#view-' + state.tab).classList.add('active');
     $$('.tab').forEach(function (t) { t.classList.toggle('active', !searching && t.getAttribute('data-tab') === state.tab); });
@@ -9381,6 +9899,10 @@
       barTitle.textContent = x.name;
       barTitle.classList.remove('show');
     }
+    var copyBtn = $('#sheetCopyBtn'), favBtn = $('#sheetFavBtn');
+    if (copyBtn) copyBtn.style.display = '';
+    if (favBtn) favBtn.style.display = '';
+
     updateSheetFavState(key);
 
     $('#sheet').style.transform = '';
@@ -9400,9 +9922,96 @@
     document.body.classList.remove('locked');
     var barTitle = $('#sheetBarTitle');
     if (barTitle) barTitle.classList.remove('show');
+    var copyBtn = $('#sheetCopyBtn'), favBtn = $('#sheetFavBtn');
+    if (copyBtn) copyBtn.style.display = '';
+    if (favBtn) favBtn.style.display = '';
     current = null;
   }
+  function openInfoSheet(type) {
+    var title = '', sub = '', content = '';
+    if (type === 'methodology') {
+      title = 'Phương Pháp Luận Biên Soạn';
+      sub = 'Nguyên tắc học thuật & Tiêu chuẩn thực chứng';
+      content = [
+        '<div class="sh-section">',
+        '  <div class="sh-sec-title">1. Tôn Chỉ Thực Chứng Khách Quan</div>',
+        '  <p class="sh-desc">Việt Sử được xây dựng trên nguyên tắc tôn trọng sự thật lịch sử, đặt các sự kiện và nhân vật vào bối cảnh thời đại cụ thể. Chúng tôi kiên quyết từ chối khuynh hướng "tô hồng thần thánh hóa" lẫn "bôi đen hạ thấp", phản ánh chân thực cả chiến công hiển hách lẫn những hạn chế lịch sử.</p>',
+        '</div>',
+        '<div class="sh-divider"></div>',
+        '<div class="sh-section">',
+        '  <div class="sh-sec-title">2. Căn Cứ &amp; Đối Chiếu Đa Nguồn</div>',
+        '  <p class="sh-desc">Mọi dữ liệu đều được đối chiếu chéo qua các nguồn chính sử kinh điển:</p>',
+        '  <ul class="sh-bullet-list">',
+        '    <li><strong>Đại Việt Sử Ký Toàn Thư:</strong> Trục thời gian và ghi chép quốc sử căn bản.</li>',
+        '    <li><strong>Khâm Định Việt Sử Thông Giám Cương Mục:</strong> Khảo đính kỹ lưỡng của Quốc Sử Quán triều Nguyễn.</li>',
+        '    <li><strong>Việt Sử Tiêu Án:</strong> Lời bình biện sắc sảo, độc lập của học giả Ngô Thì Sĩ.</li>',
+        '    <li><strong>Minh Thực Lục / Thanh Thực Lục:</strong> Nguồn sử liệu đối ngoại độc lập để kiểm chứng số liệu quân sự và niên đại.</li>',
+        '  </ul>',
+        '</div>',
+        '<div class="sh-divider"></div>',
+        '<div class="sh-section">',
+        '  <div class="sh-sec-title">3. Tách Bạch Chính Sử &amp; Huyền Tích</div>',
+        '  <p class="sh-desc">Các truyền tích cổ xưa (Họ Hồng Bàng, An Dương Vương, Thánh Gióng) được định vị rõ ràng dưới dạng <em>"Tâm thức văn hóa dân gian"</em> song hành cùng các phát hiện khảo cổ học thời đại đồ đồng (Văn hóa Đông Sơn), không đánh đồng huyền thoại với niên đại lịch sử thực nghiệm.</p>',
+        '</div>'
+      ].join('');
+    } else {
+      title = 'Hướng Dẫn Tra Cứu Sử Liệu';
+      sub = 'Thao tác tìm kiếm, lọc niên biểu & lưu trữ';
+      content = [
+        '<div class="sh-section">',
+        '  <div class="sh-sec-title">1. Tìm Kiếm Nhanh Không Dấu</div>',
+        '  <p class="sh-desc">Nhập bất kỳ từ khóa nào vào thanh tìm kiếm: Tên nhân vật (ví dụ: <code>quang trung</code>, <code>tran hung dao</code>), tên trận đánh (<code>bach dang</code>, <code>chi lang</code>), năm diễn ra (<code>1288</code>, <code>1789</code>) hoặc danh xưng khác.</p>',
+        '</div>',
+        '<div class="sh-divider"></div>',
+        '<div class="sh-section">',
+        '  <div class="sh-sec-title">2. Duyệt Theo Dải Thời Kỳ (Chips)</div>',
+        '  <p class="sh-desc">Sử dụng thanh cuộn ngang chứa các thẻ thời kỳ ngay dưới ô tìm kiếm để lọc nhanh toàn bộ nhân vật và chiến trận thuộc thời kỳ bạn quan tâm (từ thời dựng nước đến cận hiện đại).</p>',
+        '</div>',
+        '<div class="sh-divider"></div>',
+        '<div class="sh-section">',
+        '  <div class="sh-sec-title">3. Khay Chi Tiết Đa Tầng</div>',
+        '  <p class="sh-desc">Bấm vào bất kỳ thẻ bài nào để mở khay chi tiết toàn màn hình. Khay trang bị mục lục dính (Sticky TOC) giúp bạn nhảy nhanh tới phần: <em>Tổng quan · Cuộc đời/Diễn biến · Đánh giá &amp; Tranh luận · Nguồn sử liệu</em>.</p>',
+        '</div>',
+        '<div class="sh-divider"></div>',
+        '<div class="sh-section">',
+        '  <div class="sh-sec-title">4. Lưu Trữ Cá Nhân (Offline)</div>',
+        '  <p class="sh-desc">Bấm biểu tượng ngôi sao để đánh dấu lưu trữ. Toàn bộ dữ liệu được lưu cục bộ trên trình duyệt của bạn, hoạt động hoàn hảo ngay cả khi không có kết nối Internet.</p>',
+        '</div>'
+      ].join('');
+    }
+
+    var html = [
+      '<div class="sh-head">',
+      '  <div class="sh-type-line" style="color:var(--orange)">VIỆT SỬ · CẨM NANG NGHIÊN CỨU</div>',
+      '  <div class="sh-name">' + title + '</div>',
+      '  <div class="sh-alias">' + sub + '</div>',
+      '</div>',
+      '<div class="sh-body" style="padding-top:12px;">',
+      content,
+      '</div>'
+    ].join('');
+
+    current = 'info:' + type;
+    var sc = $('#sheetScroll');
+    sc.innerHTML = html;
+    sc.scrollTop = 0;
+
+    var barTitle = $('#sheetBarTitle');
+    if (barTitle) {
+      barTitle.textContent = title;
+      barTitle.classList.remove('show');
+    }
+    var copyBtn = $('#sheetCopyBtn'), favBtn = $('#sheetFavBtn');
+    if (copyBtn) copyBtn.style.display = 'none';
+    if (favBtn) favBtn.style.display = 'none';
+
+    $('#sheet').style.transform = '';
+    $('#backdrop').classList.add('show');
+    $('#sheet').classList.add('show');
+    document.body.classList.add('locked');
+  }
   window.openSheet = openSheet;
+  window.openInfoSheet = openInfoSheet;
   window.closeSheet = closeSheet;
 
   (function () {
@@ -9505,8 +10114,107 @@
   $('#backdrop').addEventListener('click', closeSheet);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && current) closeSheet(); });
 
+  /* =========================================================
+     FOOTER INTERACTIVITY (RATING & FEEDBACK)
+     ========================================================= */
+  var STAR_LABELS = {
+    1: 'Cần bổ sung nhiều nguồn tư liệu',
+    2: 'Chưa đủ chiều sâu phân tích',
+    3: 'Tương đối đầy đủ, dễ tra cứu',
+    4: 'Rất tốt, thông tin chuẩn xác và khách quan',
+    5: 'Xuất sắc! Sử liệu sâu sắc, giàu giá trị tham khảo'
+  };
+
+  function initFooter() {
+    var savedRating = null;
+    try { savedRating = JSON.parse(store('vs-rating') || 'null'); } catch (e) {}
+
+    var stars = $$('.vs-star-btn');
+    var lbl = $('#fbStarLabel');
+    var box = $('#fbBox');
+    var sendBtn = $('#fbSendBtn');
+    var input = $('#fbInput');
+    var sentMsg = $('#fbSentMsg');
+
+    function applyStars(num) {
+      stars.forEach(function (btn) {
+        var s = parseInt(btn.getAttribute('data-star'), 10);
+        btn.classList.toggle('active', s <= num);
+      });
+      if (lbl) lbl.textContent = STAR_LABELS[num] || '';
+      if (box) box.hidden = false;
+    }
+
+    if (savedRating && savedRating.stars) {
+      applyStars(savedRating.stars);
+      if (savedRating.note && input) input.value = savedRating.note;
+    }
+
+    stars.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var s = parseInt(btn.getAttribute('data-star'), 10);
+        applyStars(s);
+        store('vs-rating', JSON.stringify({ stars: s, note: input ? input.value : '', time: Date.now() }));
+      });
+    });
+
+    if (sendBtn && input) {
+      sendBtn.addEventListener('click', function () {
+        var note = input.value.trim();
+        var cur = {};
+        try { cur = JSON.parse(store('vs-rating') || '{}') || {}; } catch (e) {}
+        cur.note = note;
+        cur.time = Date.now();
+        store('vs-rating', JSON.stringify(cur));
+        if (sentMsg) {
+          sentMsg.hidden = false;
+          setTimeout(function () { sentMsg.hidden = true; }, 4000);
+        }
+      });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') sendBtn.click();
+      });
+    }
+
+    var backToTop = $('#backToTopBtn');
+    if (backToTop) {
+      backToTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    var brandTop = $('#brandTop');
+    if (brandTop) {
+      brandTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    var btnHdrMethodology = $('#btnHdrMethodology');
+    if (btnHdrMethodology) {
+      btnHdrMethodology.addEventListener('click', function () {
+        openInfoSheet('methodology');
+      });
+    }
+
+    var btnHdrGuide = $('#btnHdrGuide');
+    if (btnHdrGuide) {
+      btnHdrGuide.addEventListener('click', function () {
+        openInfoSheet('guide');
+      });
+    }
+
+    var infoBtn = $('#infoBtn');
+    if (infoBtn) {
+      infoBtn.addEventListener('click', function () {
+        openInfoSheet('methodology');
+      });
+    }
+  }
+
   renderChips();
   render();
+  initFooter();
   } catch (err) {
     console.error('Loi khoi chay Viet Su:', err);
     if (window.onerror) window.onerror(err.message || String(err), null, null, null, err);
