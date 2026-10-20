@@ -2390,6 +2390,15 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       var ppl = PEOPLE.filter(function (p) { return p.periodId === x.id; }).map(function (p) { return { key: 'person:' + p.id, label: p.name }; });
       var bts = BATTLES.filter(function (b) { return b.periodId === x.id; }).map(function (b) { return { key: 'battle:' + b.id, label: b.name }; });
 
+      var periodTags = {
+        'van-lang': 'Thời đại bình minh dựng nước và văn minh sông Hồng',
+        'au-lac': 'Quốc gia cổ đại đầu tiên tại đồng bằng Bắc Bộ',
+        'nha-ly': 'Kỷ nguyên định đô Thăng Long và phục hưng Đại Việt',
+        'nha-tran': 'Thời đại Hào khí Đông A và ba lần đại thắng Nguyên Mông',
+        'le-so': 'Đỉnh cao thiết chế quân chủ tập quyền và văn minh Nho giáo'
+      };
+      var pTag = periodTags[x.id] || 'Kỷ nguyên lịch sử định hình văn minh Đại Việt';
+
       // Infobox Rows
       var periodInfoRows = '';
       if (x.quocHieu) {
@@ -2400,138 +2409,157 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
         periodInfoRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Kinh đô</div><div class="sh-wiki-infobox-val">' + esc(x.kinhDo) + '</div></div>';
       }
       if (x.vua && x.vua.length) {
-        periodInfoRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Lãnh đạo chính</div><div class="sh-wiki-infobox-val">' + esc(x.vua.join(', ')) + '</div></div>';
+        periodInfoRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Quân chủ tiêu biểu</div><div class="sh-wiki-infobox-val">' + esc(x.vua.join(', ')) + '</div></div>';
       }
       if (x.cuongVuc) {
         periodInfoRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Cương vực</div><div class="sh-wiki-infobox-val">' + esc(x.cuongVuc) + '</div></div>';
       }
       if (ppl.length) {
         var pplChips = ppl.map(function (p) {
-          return '<button class="sh-pill" style="margin:2px 4px 2px 0;" data-open="' + p.key + '">' + esc(cleanPillLabel(p.label)) + '</button>';
-        }).join('');
-        periodInfoRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Nhân vật tiêu biểu</div><div class="sh-wiki-infobox-val" style="display:flex;flex-wrap:wrap;gap:4px;">' + pplChips + '</div></div>';
+          return '<button class="sh-inline-link" data-open="' + p.key + '">' + esc(cleanPillLabel(p.label)) + '</button>';
+        }).join(' · ');
+        periodInfoRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Nhân vật tiêu biểu</div><div class="sh-wiki-infobox-val">' + pplChips + '</div></div>';
+      }
+      if (bts.length) {
+        var btsChips = bts.map(function (b) {
+          return '<button class="sh-inline-link" data-open="' + b.key + '">' + esc(b.label) + '</button>';
+        }).join(' · ');
+        periodInfoRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Chiến sự trọng đại</div><div class="sh-wiki-infobox-val">' + btsChips + '</div></div>';
       }
 
-      // Quick Jump Pills: Khảo biện & Di sản lên ngay sau Bi kịch!
+      // Quick Jump Bar
       var periodJumpBar = '<nav class="sh-wiki-jump-bar" id="wikiJumpBar" aria-label="Mục lục bài viết">' +
         '<button class="sh-wiki-jump-pill active" data-wiki-jump="wiki-sec-lead">Dẫn nhập</button>' +
-        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-history">Kháng chiến &amp; Hợp nhất</button>' +
-        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-coloa">Thành Cổ Loa &amp; Nỏ thần</button>' +
-        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-fall">Bi kịch mất nước</button>' +
-        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-debates">Khảo biện học thuật</button>' +
-        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-legacy">Khảo cổ &amp; Di sản</button>' +
-        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-timeline">Niên biểu thời kỳ</button>' +
-        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-sources">Nguồn sử liệu</button>' +
-        '</nav>';
+        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-polity">Thiết chế &amp; Cương vực</button>' +
+        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-history">Biến thiên lịch sử</button>' +
+        '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-achievements">Thành tựu văn minh</button>';
+      if (x.debates || x.khaoBien) {
+        periodJumpBar += '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-debates">Khảo biện học thuật</button>';
+      }
+      if ((x.evidence && x.evidence.length) || (x.legacy && x.legacy.length)) {
+        periodJumpBar += '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-legacy">Khảo cổ &amp; Di sản</button>';
+      }
+      if ((x.timeline && x.timeline.length) || (x.events && x.events.length)) {
+        periodJumpBar += '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-timeline">Niên biểu thời kỳ</button>';
+      }
+      if (x.sources && x.sources.length) {
+        periodJumpBar += '<button class="sh-wiki-jump-pill" data-wiki-jump="wiki-sec-sources">Nguồn sử liệu</button>';
+      }
+      periodJumpBar += '</nav>';
 
       var pBody = '';
 
       // Section 1: Lead
       pBody += '<section class="sh-wiki-sec" id="wiki-sec-lead">';
-      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">1.</span><span class="sh-wiki-h2-text">Dẫn nhập &amp; Tầm vóc lịch sử</span></h2>';
+      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">1.</span><span class="sh-wiki-h2-text">Dẫn nhập &amp; Tầm vóc thời đại</span></h2>';
       if (x.context) {
         pBody += '<p class="sh-narrative-p">' + parseBadges(x.context) + '</p>';
       }
       pBody += '</section>';
 
-      // Section 2: Kháng chiến & Hợp nhất Âu - Lạc
-      pBody += '<section class="sh-wiki-sec" id="wiki-sec-history">';
-      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">2.</span><span class="sh-wiki-h2-text">Đại thắng kháng Tần &amp; Hợp nhất Âu – Lạc</span></h2>';
-      if (x.narrative && Array.isArray(x.narrative) && x.narrative[0]) {
-        pBody += '<p class="sh-narrative-p">' + parseBadges(x.narrative[0]) + '</p>';
-      }
+      // Section 2: Thiết chế & Cương vực
+      pBody += '<section class="sh-wiki-sec" id="wiki-sec-polity">';
+      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">2.</span><span class="sh-wiki-h2-text">Thiết chế nhà nước &amp; Cương vực lãnh thổ</span></h2>';
       if (x.theChe) {
-        pBody += shSubheading('Thiết chế nhà nước & Tổ chức quân sự');
         pBody += '<p class="sh-narrative-p">' + parseBadges(x.theChe) + '</p>';
+      }
+      if (x.cuongVuc) {
+        pBody += '<p class="sh-narrative-p"><strong>Cương vực địa lý:</strong> ' + parseBadges(x.cuongVuc) + '</p>';
       }
       pBody += '</section>';
 
-      // Section 3: Thành Cổ Loa & Nỏ thần
-      pBody += '<section class="sh-wiki-sec" id="wiki-sec-coloa">';
-      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">3.</span><span class="sh-wiki-h2-text">Đại công sự Cổ Loa &amp; Vũ khí Nỏ liên châu</span></h2>';
-      if (x.narrative && Array.isArray(x.narrative) && x.narrative[1]) {
-        pBody += '<p class="sh-narrative-p">' + parseBadges(x.narrative[1]) + '</p>';
+      // Section 3: Diễn tiến lịch sử & Biến thiên thịnh suy
+      pBody += '<section class="sh-wiki-sec" id="wiki-sec-history">';
+      var histTitle = (x.id === 'au-lac') ? 'Diễn tiến lịch sử: Kháng Tần đến Bi kịch Cổ Loa' : 'Diễn tiến lịch sử &amp; Biến thiên thịnh suy';
+      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">3.</span><span class="sh-wiki-h2-text">' + histTitle + '</span></h2>';
+      if (x.narrative && Array.isArray(x.narrative)) {
+        x.narrative.forEach(function (nPara) {
+          pBody += '<p class="sh-narrative-p">' + parseBadges(nPara) + '</p>';
+        });
+      } else if (typeof x.narrative === 'string') {
+        pBody += '<p class="sh-narrative-p">' + parseBadges(x.narrative) + '</p>';
       }
       if (x.quote) {
         pBody += renderQuote(x.quote);
       }
+      pBody += '</section>';
+
+      // Section 4: Thành tựu văn minh
+      pBody += '<section class="sh-wiki-sec" id="wiki-sec-achievements">';
+      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">4.</span><span class="sh-wiki-h2-text">Thành tựu văn minh, Kinh tế &amp; Văn hóa</span></h2>';
       if (x.achievements && x.achievements.length) {
-        pBody += shSubheading('Thành tựu văn minh & Đột phá kỹ thuật');
         pBody += '<ul class="sh-bullet-list">' +
           x.achievements.map(function (a) { return '<li>' + parseBadges(a) + '</li>'; }).join('') +
           '</ul>';
       }
       pBody += '</section>';
 
-      // Section 4: Bi kịch mất nước & Bài học giữ nước
-      pBody += '<section class="sh-wiki-sec" id="wiki-sec-fall">';
-      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">4.</span><span class="sh-wiki-h2-text">Bi kịch Trọng Thủy – Mỵ Châu &amp; Bài học ngàn đời</span></h2>';
-      if (x.narrative && Array.isArray(x.narrative) && x.narrative[2]) {
-        pBody += '<p class="sh-narrative-p">' + parseBadges(x.narrative[2]) + '</p>';
+      // Section 5: Khảo biện học thuật thực chứng (ĐƯA LÊN NGAY SAU THÀNH TỰU!)
+      if (x.debates || x.khaoBien) {
+        pBody += '<section class="sh-wiki-sec" id="wiki-sec-debates">';
+        pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">5.</span><span class="sh-wiki-h2-text">Khảo biện học thuật &amp; Giải ảo sử liệu</span></h2>';
+        if (x.debates && x.debates.length) {
+          pBody += renderDebatesEssay(x.debates);
+        }
+        if (x.khaoBien) {
+          pBody += '<div class="sh-essay-flow">' +
+            '<div class="sh-essay-card">' +
+            '<div class="sh-essay-topic">Khảo cứu học thuật thực chứng &amp; Sử liệu đối chiếu</div>' +
+            '<p class="sh-narrative-p">' + parseBadges(x.khaoBien) + '</p>' +
+            '</div></div>';
+        }
+        pBody += '</section>';
       }
-      pBody += '</section>';
-
-      // Section 5: Khảo biện học thuật thực chứng & Giải ảo huyền thoại (ĐƯA LÊN NGAY SAU BI KỊCH!)
-      pBody += '<section class="sh-wiki-sec" id="wiki-sec-debates">';
-      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">5.</span><span class="sh-wiki-h2-text">Khảo biện học thuật &amp; Giải ảo huyền thoại</span></h2>';
-      if (x.debates && x.debates.length) {
-        pBody += renderDebatesEssay(x.debates);
-      } else if (x.khaoBien) {
-        pBody += '<div class="sh-essay-flow">' +
-          '<div class="sh-essay-card">' +
-          '<div class="sh-essay-topic">Giải ảo nguồn gốc Thục Phán &amp; Nỏ thần Kim Quy</div>' +
-          '<p class="sh-narrative-p">' + parseBadges(x.khaoBien) + '</p>' +
-          '</div></div>';
-      }
-      pBody += '</section>';
 
       // Section 6: Khảo cổ học thực địa & Tọa độ di sản
-      pBody += '<section class="sh-wiki-sec" id="wiki-sec-legacy">';
-      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">6.</span><span class="sh-wiki-h2-text">Khảo cổ học thực địa &amp; Tọa độ di sản</span></h2>';
-      if (x.evidence && x.evidence.length) {
-        pBody += shSubheading('Chứng tích khảo cổ học');
-        pBody += renderEvidenceList(x.evidence);
+      if ((x.evidence && x.evidence.length) || (x.legacy && x.legacy.length)) {
+        pBody += '<section class="sh-wiki-sec" id="wiki-sec-legacy">';
+        pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">6.</span><span class="sh-wiki-h2-text">Khảo cổ học thực địa &amp; Tọa độ di sản</span></h2>';
+        if (x.evidence && x.evidence.length) {
+          pBody += shSubheading('Chứng tích khảo cổ học');
+          pBody += renderEvidenceList(x.evidence);
+        }
+        if (x.legacy && x.legacy.length) {
+          pBody += shSubheading('Di sản & Đền đài tưởng niệm');
+          pBody += renderLegacyEssay(x.legacy);
+        }
+        pBody += '</section>';
       }
-      if (x.legacy && x.legacy.length) {
-        pBody += shSubheading('Di sản & Đền đài tưởng niệm');
-        pBody += renderLegacyEssay(x.legacy);
-      }
-      pBody += '</section>';
 
-      // Section 7: Niên biểu lịch sử thời kỳ (Card tra cứu chuyên dụng)
-      pBody += '<section class="sh-wiki-sec" id="wiki-sec-timeline">';
-      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">7.</span><span class="sh-wiki-h2-text">Niên biểu lịch sử thời kỳ</span></h2>';
+      // Section 7: Niên biểu lịch sử thời kỳ
       var pTl = (x.timeline && x.timeline.length) ? x.timeline : (x.events || []);
       if (pTl.length) {
-        pBody += renderWikiTimelineCard(pTl, 'Trục thời gian sự kiện thời Âu Lạc');
+        pBody += '<section class="sh-wiki-sec" id="wiki-sec-timeline">';
+        pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">7.</span><span class="sh-wiki-h2-text">Niên biểu lịch sử thời kỳ</span></h2>';
+        pBody += renderWikiTimelineCard(pTl, 'Trục thời gian sự kiện thời ' + esc(x.name));
+        pBody += '</section>';
       }
-      pBody += '</section>';
 
       // Section 8: Nguồn sử liệu
-      pBody += '<section class="sh-wiki-sec" id="wiki-sec-sources">';
-      pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">8.</span><span class="sh-wiki-h2-text">Chứng tích thư tịch cổ &amp; Nguồn nghiên cứu</span></h2>';
-      if (x.sources) {
+      if (x.sources && x.sources.length) {
+        pBody += '<section class="sh-wiki-sec" id="wiki-sec-sources">';
+        pBody += '<h2 class="sh-wiki-h2"><span class="sh-wiki-h2-num">8.</span><span class="sh-wiki-h2-text">Chứng tích thư tịch cổ &amp; Nguồn nghiên cứu</span></h2>';
         pBody += renderSources(x.sources);
+        pBody += '</section>';
       }
-      pBody += '</section>';
 
-      var pColoaIcon = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg>';
+      var pIcon = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg>';
 
       var pWrap = '<div class="sh-wiki-wrap">' +
         '<div class="sh-wiki-lead-badge">' +
-        pColoaIcon +
-        '<span>Thời kỳ · ' + esc(eraLabel(x.era)) + '</span>' +
+        pIcon +
+        '<span>Thời kỳ lịch sử · ' + esc(eraLabel(x.era)) + '</span>' +
         '</div>' +
         '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
-        '<div class="sh-wiki-sub-title">' + esc(x.years) + ' · Kinh đô: ' + esc(x.kinhDo ? x.kinhDo.split('–')[0].trim() : '') + '</div>' +
+        '<div class="sh-wiki-sub-title">' + esc(x.years) + (x.kinhDo ? ' · Kinh đô: ' + esc(x.kinhDo.split('–')[0].trim()) : '') + (x.quocHieu ? ' · Quốc hiệu: ' + esc(x.quocHieu) : '') + '</div>' +
 
         // Infobox
         '<div class="sh-wiki-infobox">' +
         '  <div class="sh-wiki-infobox-hdr">' +
-        '    <div class="bi" aria-hidden="true">' + pColoaIcon + '</div>' +
+        '    <div class="bi" aria-hidden="true" style="background:rgba(140, 94, 36, 0.12); color:#8C5E24;">' + pIcon + '</div>' +
         '    <div class="sh-wiki-infobox-hdr-txt">' +
         '      <div class="sh-wiki-infobox-name">' + esc(x.name) + '</div>' +
-        '      <div class="sh-wiki-infobox-tag">Quốc gia cổ đại đầu tiên tại đồng bằng Bắc Bộ</div>' +
+        '      <div class="sh-wiki-infobox-tag">' + esc(pTag) + '</div>' +
         '    </div>' +
         '  </div>' +
         '  <div class="sh-wiki-infobox-table">' + periodInfoRows + '</div>' +
@@ -2706,13 +2734,17 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     'le-loi': 1, 'nguyen-trai': 1, 'quang-trung': 1
   };
 
+  var WIKI_PERIODS = {
+    'van-lang': 1, 'au-lac': 1, 'nha-ly': 1, 'nha-tran': 1, 'le-so': 1
+  };
+
   var WIKI_BATTLES = {
     'bach-dang-938': 1, 'nhu-nguyet-1077': 1, 'bach-dang-1288': 1,
     'chi-lang-xuong-giang-1427': 1, 'rach-gam-xoai-mut-1785': 1, 'ngoc-hoi-dong-da-1789': 1
   };
 
   function sheetHTML(type, x) {
-    if ((type === 'person' && WIKI_PERSONS[x.id]) || (type === 'period' && x.id === 'au-lac') || (type === 'battle' && WIKI_BATTLES[x.id])) {
+    if ((type === 'person' && WIKI_PERSONS[x.id]) || (type === 'period' && WIKI_PERIODS[x.id]) || (type === 'battle' && WIKI_BATTLES[x.id])) {
       return renderWikiArticle(type, x);
     }
     var key = type + ':' + x.id;
