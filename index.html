@@ -883,21 +883,12 @@ button, .chip, .tab, .card > button.open { touch-action: manipulation; -webkit-u
 .fav svg { transition: transform .2s var(--ease-ui); }
 .fav:active svg { transform: scale(.8); transition-duration: .06s; }
 
-/* ---------- 1. B3 — Thanh bám theo ngón tay + viền sương ---------- */
+/* ---------- 1. B3 — Thanh bám theo ngón tay (Tràn viền sạch sẽ, Zero Overlay) ---------- */
 .topbar, .tabbar { will-change: transform, opacity; transition: none; }
 body.vs-bars-snap .topbar, body.vs-bars-snap .tabbar {
   transition: transform .26s var(--ease-ui), opacity .26s var(--ease-ui);   /* chỉ khi chốt */
 }
-.vs-fade { position: fixed; left: 0; right: 0; z-index: 39; pointer-events: none; opacity: 0; }
-body.vs-bars-snap .vs-fade { transition: opacity .26s var(--ease-ui); }
-.vs-fade-t {
-  top: 0; height: calc(var(--safe-t) + 40px);
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 85%, transparent), transparent);
-}
-.vs-fade-b {
-  bottom: 0; height: calc(var(--safe-b) + 44px);
-  background: linear-gradient(to top, color-mix(in srgb, var(--bg) 85%, transparent), transparent);
-}
+.vs-fade { display: none !important; }
 body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 
 /* ---------- 2. Khay chi tiết ---------- */
@@ -2426,9 +2417,6 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     var topbar = document.querySelector('.topbar'), tabbar = document.querySelector('.tabbar');
     if (!topbar || !tabbar) return;
     var body = document.body;
-    var fadeT = document.createElement('div'), fadeB = document.createElement('div');
-    fadeT.className = 'vs-fade vs-fade-t'; fadeB.className = 'vs-fade vs-fade-b';
-    body.appendChild(fadeT); body.appendChild(fadeB);
 
     var RANGE = 80;            // ngón tay đi 80px thì thanh ẩn hẳn
     var p = 0;                 // 0 = hiện đủ, 1 = ẩn hẳn
@@ -2438,11 +2426,19 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 
     function apply(snap) {
       body.classList.toggle('vs-bars-snap', !!snap);
-      var o = String(1 - p * 0.9);
-      topbar.style.transform = 'translate3d(0,' + (-p * th).toFixed(1) + 'px,0)'; topbar.style.opacity = o;
-      tabbar.style.transform = 'translate3d(0,' + (p * bh).toFixed(1) + 'px,0)';  tabbar.style.opacity = o;
-      fadeT.style.opacity = fadeB.style.opacity = String(p);
-      var off = p > 0.5 ? 'none' : '';
+      var o = Math.max(0, 1 - p);
+      topbar.style.transform = 'translate3d(0,' + (-p * (th + 16)).toFixed(1) + 'px,0)';
+      topbar.style.opacity = o.toFixed(2);
+      tabbar.style.transform = 'translate3d(0,' + (p * (bh + 16)).toFixed(1) + 'px,0)';
+      tabbar.style.opacity = o.toFixed(2);
+      if (p >= 0.98) {
+        topbar.style.visibility = 'hidden';
+        tabbar.style.visibility = 'hidden';
+      } else {
+        topbar.style.visibility = '';
+        tabbar.style.visibility = '';
+      }
+      var off = p > 0.3 ? 'none' : '';
       topbar.style.pointerEvents = tabbar.style.pointerEvents = off;
     }
     function settle() {        // tay và quán tính đã dừng: chốt theo hướng cuộn cuối cùng
