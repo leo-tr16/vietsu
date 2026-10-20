@@ -891,21 +891,41 @@ body.vs-bars-snap .topbar, body.vs-bars-snap .tabbar {
 .vs-fade { display: none !important; }
 
 /* =====================================================================
-   TRÀN VIỀN 2 ĐẦU — Thanh trên & thanh dưới cùng dạng viên thuốc nổi (iOS 26)
-   Không thanh nào chạm mép màn hình → Safari không đúc dải màu đặc,
-   nội dung chạy mờ phía sau ở cả top lẫn bottom.
+   CUỘN KIỂU GIA PHẢ — tham khảo bản Gia Phả Vũ Tộc
+   • Header nằm trong luồng trang: cuộn đi cùng nội dung → tràn viền mép trên.
+   • Thanh gọn (.vs-mini) chỉ trượt xuống khi ô tìm kiếm đã cuộn khuất,
+     trượt đi khi quay về đầu trang. Lúc ẩn: visibility hidden → Safari không tô dải màu.
+   • Tab bar viên thuốc nổi: ẩn khi vuốt xuống đọc, hiện khi vuốt ngược lên.
+   • Chuyển động bằng CSS transition .22s — không bám ngón tay từng pixel.
    ===================================================================== */
 .topbar {
-  position: fixed; top: calc(var(--safe-t) + 8px); left: 12px; right: 12px;
-  max-width: 736px; margin: 0 auto; padding-top: 0;
-  border: 1px solid var(--hair); border-radius: 22px;
+  position: relative; top: auto; background: transparent;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.vs-mini {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 41;
+  padding-top: var(--safe-t);
   background: var(--glass);
   -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
-  box-shadow: 0 8px 28px -10px rgba(40, 25, 10, 0.22), 0 1px 3px rgba(40, 25, 10, 0.08);
+  border-bottom: 1px solid var(--hair);
+  transform: translateY(-105%); visibility: hidden;
+  transition: transform .22s ease, visibility 0s linear .22s;
 }
-:root[data-theme="dark"] .topbar { box-shadow: 0 8px 28px -10px rgba(0, 0, 0, 0.6); }
-.topbar-inner { height: var(--header-h); padding: 0 6px 0 12px; }
-body { padding-top: calc(var(--safe-t) + var(--header-h) + 18px); }   /* chừa chỗ cho thanh trên nổi */
+html.vs-bar-on .vs-mini, .vs-mini:focus-within {
+  transform: none; visibility: visible; transition: transform .22s ease;
+  box-shadow: 0 8px 20px -16px rgba(40, 25, 10, .45);
+}
+body.locked .vs-mini { visibility: hidden; }
+.vs-mini-in { max-width: 760px; margin: 0 auto; height: 52px; padding: 0 12px 0 24px; display: flex; align-items: center; gap: 8px; }
+.vs-mini-brand { flex: 1; min-width: 0; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+.vs-mini-brand svg { flex: none; width: 20px; height: 20px; color: var(--ac); }
+.vs-mini-t { flex: none; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
+.vs-mini-sec { min-width: 0; font-size: 13.5px; font-weight: 500; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vs-mini-sec:not(:empty)::before { content: '·'; margin: 0 6px 0 2px; color: var(--text-4); }
+.vs-mini-btn { flex: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: var(--text-2); }
+.vs-mini-btn:active { background: var(--neutral-soft); }
+.vs-mini-btn svg { width: 20px; height: 20px; }
+@media (max-width: 680px) { .vs-mini-in { padding: 0 4px 0 16px; } }
 
 /* Tab bar nổi dạng viên thuốc (iOS 26 / Liquid Glass): không chạm mép → Safari không đúc thành khối đặc, nội dung tràn viền phía sau */
 .tabbar {
@@ -918,6 +938,11 @@ body { padding-top: calc(var(--safe-t) + var(--header-h) + 18px); }   /* chừa 
 }
 :root[data-theme="dark"] .tabbar { box-shadow: 0 8px 28px -8px rgba(0, 0, 0, 0.6); }
 .tabbar-inner { height: 60px; padding: 0 4px; }
+.tabbar { transition: transform .22s ease, visibility 0s linear 0s; }
+html.vs-tab-off .tabbar {
+  transform: translateY(calc(100% + var(--safe-b) + 24px)); visibility: hidden;
+  transition: transform .22s ease, visibility 0s linear .22s;
+}
 .tab svg { padding: 4px 14px; }
 .site-foot { padding-bottom: calc(var(--tab-h) + var(--safe-b) + 40px); }
 .toast { bottom: calc(var(--tab-h) + var(--safe-b) + 22px); }
@@ -2452,59 +2477,55 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     sheet.addEventListener('touchcancel', end);
   })();
 
-  /* [B3] Header + Tab bar bám theo ngón tay, mờ dần, có viền sương mép trên/dưới */
+  /* [B4] Cuộn kiểu Gia Phả: thanh gọn hiện khi ô tìm kiếm cuộn khuất; tab bar ẩn khi đọc xuống, hiện khi vuốt lên */
   var REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   (function () {
-    var topbar = document.querySelector('.topbar'), tabbar = document.querySelector('.tabbar');
-    if (!topbar || !tabbar) return;
-    var body = document.body;
+    var root = document.documentElement, body = document.body;
+    var mini = document.getElementById('vsMini'), sb = document.getElementById('searchBox');
 
-    var RANGE = 80;            // ngón tay đi 80px thì thanh ẩn hẳn
-    var p = 0;                 // 0 = hiện đủ, 1 = ẩn hẳn
-    var lastY = window.scrollY, dir = 0, ticking = false, settleT = 0, th = 0, bh = 0;
-    function measure() {       // th/bh gồm cả khoảng nổi để 2 thanh viên thuốc trượt hẳn khỏi màn hình
-      th = topbar.offsetHeight + (parseFloat(getComputedStyle(topbar).top) || 0);
-      bh = tabbar.offsetHeight + (parseFloat(getComputedStyle(tabbar).bottom) || 0);
-    }
-    measure(); window.addEventListener('resize', measure);
-
-    function apply(snap) {
-      body.classList.toggle('vs-bars-snap', !!snap);
-      var o = Math.max(0, 1 - p);
-      topbar.style.transform = 'translate3d(0,' + (-p * (th + 16)).toFixed(1) + 'px,0)';
-      topbar.style.opacity = o.toFixed(2);
-      tabbar.style.transform = 'translate3d(0,' + (p * (bh + 16)).toFixed(1) + 'px,0)';
-      tabbar.style.opacity = o.toFixed(2);
-      if (p >= 0.98) {
-        topbar.style.visibility = 'hidden';
-        tabbar.style.visibility = 'hidden';
-      } else {
-        topbar.style.visibility = '';
-        tabbar.style.visibility = '';
+    /* Thanh gọn mép trên */
+    if (mini) {
+      if (sb && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          var e = es[0];
+          root.classList.toggle('vs-bar-on', !e.isIntersecting && e.boundingClientRect.top < 0);
+        }).observe(sb);
       }
-      var off = p > 0.3 ? 'none' : '';
-      topbar.style.pointerEvents = tabbar.style.pointerEvents = off;
+      var toTop = function () { window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' }); };
+      document.getElementById('vsMiniTop').addEventListener('click', toTop);
+      document.getElementById('vsMiniSearch').addEventListener('click', function () {
+        var q = document.getElementById('q');
+        if (q) q.focus({ preventScroll: true });     // mở bàn phím ngay trong cử chạm (iOS)
+        toTop();
+      });
+      var sec = document.getElementById('vsMiniSec'), tb = document.getElementById('tabbar');
+      var syncSec = function () {
+        var t = tb && tb.querySelector('.tab.active');
+        if (sec) sec.textContent = t ? t.textContent.replace(/\s+/g, ' ').trim() : '';
+      };
+      syncSec();
+      if (tb && 'MutationObserver' in window) new MutationObserver(syncSec).observe(tb, { subtree: true, attributes: true, attributeFilter: ['class'] });
     }
-    function settle() {        // tay và quán tính đã dừng: chốt theo hướng cuộn cuối cùng
-      var y = window.scrollY;
-      var nearBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 40;
-      if (y < RANGE || nearBottom) p = 0;
-      else if (p > 0 && p < 1) p = dir > 0 ? 1 : 0;
-      apply(true);
-    }
+
+    /* Tab bar đáy: đổi trạng thái theo hướng cuộn (có ngưỡng chống rung) */
+    var lastY = window.scrollY, acc = 0, ticking = false;
+    function setOff(off) { root.classList.toggle('vs-tab-off', !!off); }
     function frame() {
       ticking = false;
       if (body.classList.contains('locked')) { lastY = window.scrollY; return; }
       var y = window.scrollY, d = y - lastY; lastY = y;
-      if (d) dir = d > 0 ? 1 : -1;
-      p = y <= 0 ? 0 : Math.min(1, Math.max(0, p + d / RANGE), y / RANGE);
-      apply(false);
-      clearTimeout(settleT); settleT = setTimeout(settle, 120);
+      if (!d) return;
+      if ((d > 0) !== (acc > 0)) acc = 0;
+      acc += d;
+      var nearBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 40;
+      if (y < 120 || nearBottom) setOff(false);
+      else if (acc > 24) setOff(true);
+      else if (acc < -24) setOff(false);
     }
     window.addEventListener('scroll', function () {
       if (!ticking) { ticking = true; requestAnimationFrame(frame); }
     }, { passive: true });
-    window.vsShowBars = function () { p = 0; apply(true); };
+    window.vsShowBars = function () { acc = 0; setOff(false); };
   })();
 
   /* =========================================================
