@@ -890,8 +890,22 @@ body.vs-bars-snap .topbar, body.vs-bars-snap .tabbar {
 }
 .vs-fade { display: none !important; }
 
-/* Tràn viền: khi thanh đã ẩn hẳn, topbar thôi "dính" mép trên (vẫn giữ chỗ trong layout, không nhảy nội dung) */
-body.vs-top-off .topbar { position: relative; }
+/* =====================================================================
+   TRÀN VIỀN 2 ĐẦU — Thanh trên & thanh dưới cùng dạng viên thuốc nổi (iOS 26)
+   Không thanh nào chạm mép màn hình → Safari không đúc dải màu đặc,
+   nội dung chạy mờ phía sau ở cả top lẫn bottom.
+   ===================================================================== */
+.topbar {
+  position: fixed; top: calc(var(--safe-t) + 8px); left: 12px; right: 12px;
+  max-width: 736px; margin: 0 auto; padding-top: 0;
+  border: 1px solid var(--hair); border-radius: 22px;
+  background: var(--glass);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 8px 28px -10px rgba(40, 25, 10, 0.22), 0 1px 3px rgba(40, 25, 10, 0.08);
+}
+:root[data-theme="dark"] .topbar { box-shadow: 0 8px 28px -10px rgba(0, 0, 0, 0.6); }
+.topbar-inner { height: var(--header-h); padding: 0 6px 0 12px; }
+body { padding-top: calc(var(--safe-t) + var(--header-h) + 18px); }   /* chừa chỗ cho thanh trên nổi */
 
 /* Tab bar nổi dạng viên thuốc (iOS 26 / Liquid Glass): không chạm mép → Safari không đúc thành khối đặc, nội dung tràn viền phía sau */
 .tabbar {
@@ -2448,8 +2462,8 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     var RANGE = 80;            // ngón tay đi 80px thì thanh ẩn hẳn
     var p = 0;                 // 0 = hiện đủ, 1 = ẩn hẳn
     var lastY = window.scrollY, dir = 0, ticking = false, settleT = 0, th = 0, bh = 0;
-    function measure() {       // bh gồm cả khoảng nổi phía dưới để thanh viên thuốc trượt hẳn khỏi màn hình
-      th = topbar.offsetHeight;
+    function measure() {       // th/bh gồm cả khoảng nổi để 2 thanh viên thuốc trượt hẳn khỏi màn hình
+      th = topbar.offsetHeight + (parseFloat(getComputedStyle(topbar).top) || 0);
       bh = tabbar.offsetHeight + (parseFloat(getComputedStyle(tabbar).bottom) || 0);
     }
     measure(); window.addEventListener('resize', measure);
@@ -2464,9 +2478,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       if (p >= 0.98) {
         topbar.style.visibility = 'hidden';
         tabbar.style.visibility = 'hidden';
-        body.classList.add('vs-top-off');      // gỡ sticky → Safari 26 không còn tô dải màu đặc ở mép trên
       } else {
-        body.classList.remove('vs-top-off');
         topbar.style.visibility = '';
         tabbar.style.visibility = '';
       }
