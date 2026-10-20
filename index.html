@@ -12,8 +12,8 @@
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#12100D">
 <meta name="description" content="Tra cứu lịch sử Việt Nam thực chứng: 19 thời kỳ, nhân vật, trận đánh và khảo biện sử liệu.">
 <title>Việt Sử – Tra cứu lịch sử Việt Nam</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234B5D78'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%234B5D78'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5.5' fill='%239B2C2C'/%3E%3Cg transform='translate%2812 12%29 scale%28.72%29 translate%28-12 -12%29' fill='%23fff'%3E%3Ccircle cx='12' cy='12' r='2.6'/%3E%3Cpath d='M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
@@ -1018,6 +1018,12 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     </div>
   </div>
 </header>
+<nav class="vs-mini" id="vsMini" aria-label="Thanh điều hướng nhanh">
+  <div class="vs-mini-in">
+    <button type="button" class="vs-mini-brand" id="vsMiniTop" aria-label="Lên đầu trang"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg><span class="vs-mini-t">Việt Sử</span><span class="vs-mini-sec" id="vsMiniSec"></span></button>
+    <button type="button" class="vs-mini-btn" id="vsMiniSearch" aria-label="Tìm kiếm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+  </div>
+</nav>
 
 <main>
   <div class="masthead" id="heroMasthead">
@@ -2482,6 +2488,18 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
   (function () {
     var root = document.documentElement, body = document.body;
     var mini = document.getElementById('vsMini'), sb = document.getElementById('searchBox');
+    if (!mini) {                                   /* phòng khi bản dựng thiếu khối HTML: tự tạo thanh gọn */
+      var hd = document.querySelector('.topbar');
+      mini = document.createElement('nav');
+      mini.className = 'vs-mini'; mini.id = 'vsMini'; mini.setAttribute('aria-label', 'Thanh điều hướng nhanh');
+      mini.innerHTML = '<div class="vs-mini-in">' +
+        '<button type="button" class="vs-mini-brand" id="vsMiniTop" aria-label="Lên đầu trang">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg>' +
+        '<span class="vs-mini-t">Việt Sử</span><span class="vs-mini-sec" id="vsMiniSec"></span></button>' +
+        '<button type="button" class="vs-mini-btn" id="vsMiniSearch" aria-label="Tìm kiếm">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button></div>';
+      if (hd && hd.parentNode) hd.parentNode.insertBefore(mini, hd.nextSibling); else document.body.appendChild(mini);
+    }
 
     /* Thanh gọn mép trên */
     if (mini) {
