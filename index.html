@@ -2550,7 +2550,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
   <div class="topbar-inner">
     <div class="app-brand" id="brandTop" title="Việt Sử Toàn Thư">
       <span class="app-emblem" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg>
+        <svg viewBox="0 0 512 512" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M239.07 177.81L256.00 8.00L272.93 177.81ZM274.68 178.21L363.60 32.56L305.17 192.90ZM306.58 194.02L449.89 101.37L327.68 220.48ZM328.46 222.10L497.78 200.81L335.99 255.10ZM335.99 256.90L497.78 311.19L328.46 289.90ZM327.68 291.52L449.89 410.63L306.58 317.98ZM305.17 319.10L363.60 479.44L274.68 333.79ZM272.93 334.19L256.00 504.00L239.07 334.19ZM237.32 333.79L148.40 479.44L206.83 319.10ZM205.42 317.98L62.11 410.63L184.32 291.52ZM183.54 289.90L14.22 311.19L176.01 256.90ZM176.01 255.10L14.22 200.81L183.54 222.10ZM184.32 220.48L62.11 101.37L205.42 194.02ZM206.83 192.90L148.40 32.56L237.32 178.21Z"/><circle cx="256.00" cy="256.00" r="68.00"/></svg>
       </span>
       <div class="app-title-group">
         <div class="app-title">Việt Sử</div>
@@ -2561,7 +2561,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       <button class="icon-btn" id="infoBtn" aria-label="Thông tin &amp; Phương pháp luận" title="Thông tin dự án">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
       </button>
-      <button id="btnInstallApp" class="btn-install-app" type="button" aria-label="Cài đặt App / Thêm ra màn hình chính" title="Thêm ra màn hình chính"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-txt">Cài đặt App</span></button>
+      <button id="btnInstallApp" class="btn-install-app" type="button" aria-label="Cài đặt App / Thêm ra màn hình chính" title="Thêm ra màn hình chính"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-txt">Cài app</span></button>
       <button class="icon-btn" id="themeToggle" aria-label="Chuyển chế độ Sáng/Tối" title="Đổi giao diện">
         <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
       </button>
@@ -5652,8 +5652,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       if (state.tab === 'saved') renderSaved();
     }
   });
-  $('#backdrop').addEventListener('click', closeSheet);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && current) closeSheet(); });
+  // Luu y: Backdrop click va Escape key duoc dieu phoi tap trung (LIFO - dong lop tren cung) o phan cuoi file
 
   /* =========================================================
      FOOTER INTERACTIVITY (RATING & FEEDBACK)
@@ -6021,12 +6020,28 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
            window.navigator.standalone === true;
   }
 
+  var ignoreNextPop = false;
+
   function detectClientEnv() {
     var ua = navigator.userAgent || '';
-    var isInApp = /FBAN|FBAV|FB_IAB|Instagram|Line\/|Zalo|MicroMessenger|BytedanceWebview|musical_ly/i.test(ua);
+    var isInApp = /FBAN|FBAV|FB_IAB|Instagram| Line\/|Zalo|MicroMessenger|BytedanceWebview|musical_ly/i.test(ua);
+    var isZalo = /Zalo/i.test(ua);
     var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isIPad = /iPad/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isIOSOther = isIOS && /CriOS|EdgiOS|FxiOS/i.test(ua);
     var isAndroid = /Android/i.test(ua);
-    return { isInApp: isInApp, isIOS: isIOS, isAndroid: isAndroid };
+    var isSamsung = isAndroid && /SamsungBrowser/i.test(ua);
+    var isFirefoxAndroid = isAndroid && /Firefox/i.test(ua);
+    return {
+      isInApp: isInApp,
+      isZalo: isZalo,
+      isIOS: isIOS,
+      isIPad: isIPad,
+      isIOSOther: isIOSOther,
+      isAndroid: isAndroid,
+      isSamsung: isSamsung,
+      isFirefoxAndroid: isFirefoxAndroid
+    };
   }
 
   function handleInstallClick() {
@@ -6053,6 +6068,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     var env = detectClientEnv();
     var stepsBox = $('#appModalSteps');
     var descEl = $('#appModalDesc');
+    var titleEl = $('#appModalTitle');
     var fallbackBox = $('#inAppFallbackBox');
     var intentBtn = $('#btnOpenChromeIntent');
 
@@ -6060,15 +6076,19 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 
     if (env.isInApp) {
       // 1. Trường hợp In-App Browser (Zalo, Facebook, TikTok)
-      descEl.textContent = 'Trình duyệt nhúng trong ứng dụng không hỗ trợ cài đặt trực tiếp. Vui lòng mở trang bằng trình duyệt chính của máy:';
+      if (titleEl) titleEl.textContent = 'Mở bằng trình duyệt để cài đặt';
+      descEl.textContent = 'Trình duyệt nhúng không hỗ trợ tạo lối tắt màn hình chính. Vui lòng mở bằng trình duyệt chính của máy:';
+      var step1Text = env.isZalo
+        ? 'Chạm vào biểu tượng menu <strong>(•••)</strong> ở góc trên bên phải màn hình Zalo.'
+        : 'Chạm vào biểu tượng menu <strong>(•••)</strong> hoặc <strong>Chia sẻ</strong> ở góc trên màn hình.';
       stepsBox.innerHTML = [
         '<div class="ios-step-row">',
-        '  <span class="ios-step-num">!</span>',
-        '  <div class="ios-step-txt">Chạm vào biểu tượng <strong>menu (•••)</strong> hoặc <strong>Chia sẻ</strong> ở góc trên màn hình.</div>',
+        '  <span class="ios-step-num">1</span>',
+        '  <div class="ios-step-txt">' + step1Text + '</div>',
         '</div>',
         '<div class="ios-step-row">',
         '  <span class="ios-step-num">2</span>',
-        '  <div class="ios-step-txt">Chọn <strong>"Mở bằng trình duyệt Safari"</strong> (trên iPhone) hoặc <strong>"Mở bằng Chrome"</strong> (trên Android).</div>',
+        '  <div class="ios-step-txt">Chọn <strong>"Mở bằng trình duyệt"</strong> (Safari trên iPhone hoặc Chrome trên Android).</div>',
         '</div>'
       ].join('');
       if (fallbackBox) {
@@ -6078,25 +6098,82 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
           intentBtn.href = 'intent://leo-tr16.github.io/vietsu/#Intent;scheme=https;package=com.android.chrome;end';
         }
       }
-    } else if (env.isIOS) {
-      // 2. Trường hợp Safari trên iOS 26 / iPhone / iPad
-      descEl.textContent = 'Thêm biểu tượng Việt Sử ra màn hình chính iPhone & iPad để tra cứu toàn màn hình mượt mà:';
+    } else if (env.isIOS && !env.isIOSOther) {
+      // 2. Safari trên iOS (iPhone / iPad)
+      if (titleEl) titleEl.textContent = 'Thêm Việt Sử vào Màn hình chính';
+      descEl.textContent = 'Cài đặt biểu tượng Việt Sử ra màn hình chính Apple để tra cứu toàn màn hình mượt mà:';
+      var posText = env.isIPad ? 'ở góc trên bên phải màn hình' : 'ở góc dưới bên phải màn hình Safari';
       stepsBox.innerHTML = [
         '<div class="ios-step-row">',
         '  <span class="ios-step-num">1</span>',
-        '  <div class="ios-step-txt">Chạm vào nút <strong>•••</strong> (hoặc biểu tượng <strong>Chia sẻ</strong> <span class="ios-badge-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></span> nếu thấy ngay trên thanh công cụ), rồi chọn <strong>Chia sẻ</strong>.</div>',
+        '  <div class="ios-step-txt">Chạm vào nút menu <strong>(•••)</strong> ' + posText + '.</div>',
         '</div>',
         '<div class="ios-step-row">',
         '  <span class="ios-step-num">2</span>',
-        '  <div class="ios-step-txt">Cuộn tìm và nhấn chọn mục <strong>"Thêm vào MH chính"</strong> (Add to Home Screen <span class="ios-badge-icon">➕</span>).</div>',
+        '  <div class="ios-step-txt">Chạm chọn mục <strong>"Chia sẻ"</strong> (Share <span class="ios-badge-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></span>).</div>',
         '</div>',
         '<div class="ios-step-row">',
         '  <span class="ios-step-num">3</span>',
-        '  <div class="ios-step-txt">Giữ bật tùy chọn <strong>"Mở dưới dạng ứng dụng web"</strong> (nếu có), rồi chạm <strong>"Thêm"</strong> ở góc trên bên phải.</div>',
+        '  <div class="ios-step-txt">Cuộn danh sách xuống, chọn <strong>"Thêm vào MH chính"</strong> (Add to Home Screen ➕).</div>',
+        '</div>',
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">4</span>',
+        '  <div class="ios-step-txt">Bật tùy chọn <strong>"Mở dưới dạng ứng dụng web"</strong> (nếu có), rồi chạm <strong>"Thêm"</strong> ở góc trên bên phải.</div>',
+        '</div>'
+      ].join('');
+    } else if (env.isIOS && env.isIOSOther) {
+      // 3. Chrome / Edge / Firefox trên iOS
+      if (titleEl) titleEl.textContent = 'Thêm Việt Sử vào Màn hình chính';
+      descEl.textContent = 'Để thêm ứng dụng từ trình duyệt này ra màn hình chính:';
+      stepsBox.innerHTML = [
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">1</span>',
+        '  <div class="ios-step-txt">Chạm vào biểu tượng <strong>Chia sẻ</strong> (Share) nằm ngay trên thanh địa chỉ ở góc trên màn hình.</div>',
+        '</div>',
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">2</span>',
+        '  <div class="ios-step-txt">Cuộn tìm và chọn mục <strong>"Thêm vào MH chính"</strong>.</div>',
+        '</div>',
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">3</span>',
+        '  <div class="ios-step-txt">Hoặc bạn nên mở trang bằng <strong>Safari</strong> để có trải nghiệm PWA toàn màn hình chuẩn nhất.</div>',
+        '</div>'
+      ].join('');
+    } else if (env.isSamsung) {
+      // 4. Samsung Internet trên Android
+      if (titleEl) titleEl.textContent = 'Thêm Việt Sử vào Màn hình chính';
+      descEl.textContent = 'Cài đặt biểu tượng Việt Sử trên trình duyệt Samsung Internet:';
+      stepsBox.innerHTML = [
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">1</span>',
+        '  <div class="ios-step-txt">Chạm vào biểu tượng menu <strong>(≡)</strong> ba gạch ở góc dưới bên phải màn hình.</div>',
+        '</div>',
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">2</span>',
+        '  <div class="ios-step-txt">Chọn mục <strong>"Thêm trang vào"</strong> &rarr; chọn <strong>"Màn hình chờ"</strong> (Home screen).</div>',
+        '</div>',
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">3</span>',
+        '  <div class="ios-step-txt">Nhấn <strong>"Thêm"</strong> để hoàn tất.</div>',
+        '</div>'
+      ].join('');
+    } else if (env.isFirefoxAndroid) {
+      // 5. Firefox trên Android
+      if (titleEl) titleEl.textContent = 'Thêm Việt Sử vào Màn hình chính';
+      descEl.textContent = 'Cài đặt biểu tượng Việt Sử trên trình duyệt Firefox:';
+      stepsBox.innerHTML = [
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">1</span>',
+        '  <div class="ios-step-txt">Chạm vào biểu tượng menu <strong>(⋮)</strong> ba chấm ở góc phải thanh địa chỉ.</div>',
+        '</div>',
+        '<div class="ios-step-row">',
+        '  <span class="ios-step-num">2</span>',
+        '  <div class="ios-step-txt">Chọn mục <strong>"Cài đặt"</strong> hoặc <strong>"Thêm vào màn hình chính"</strong>.</div>',
         '</div>'
       ].join('');
     } else {
-      // 3. Trường hợp Android Chrome dự phòng (khi chưa kích hoạt beforeinstallprompt)
+      // 6. Google Chrome trên Android (Mặc định)
+      if (titleEl) titleEl.textContent = 'Thêm Việt Sử vào Màn hình chính';
       descEl.textContent = 'Cài đặt biểu tượng Việt Sử ra màn hình chính điện thoại Android nhanh chóng:';
       stepsBox.innerHTML = [
         '<div class="ios-step-row">',
@@ -6118,6 +6195,10 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     $('#backdrop').classList.add('show');
     lockBody();
 
+    // Focus management for accessibility
+    var closeBtn = $('#closeInstallModalBtn');
+    if (closeBtn) closeBtn.focus();
+
     // Push state without changing hash URL to avoid router conflict
     if (window.history && window.history.pushState) {
       window.history.pushState({ vsModal: 'install' }, '');
@@ -6136,6 +6217,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     }
 
     if (!isPop && window.history && window.history.state && window.history.state.vsModal === 'install') {
+      ignoreNextPop = true;
       window.history.back();
     }
   }
@@ -6160,7 +6242,48 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     });
   }
 
-  // Backdrop click closes topmost modal only
+  // Intent Chrome fallback timer
+  var intentBtnEl = $('#btnOpenChromeIntent');
+  if (intentBtnEl) {
+    intentBtnEl.addEventListener('click', function () {
+      setTimeout(function () {
+        if (!document.hidden) {
+          toast('Nếu Chrome không mở tự động, vui lòng dùng nút "Chép link" ở trên');
+        }
+      }, 1500);
+    });
+  }
+
+  // Swipe-down to close install modal
+  var modalInstallEl = $('#appInstallModal');
+  if (modalInstallEl) {
+    var modalCard = modalInstallEl.querySelector('.ios-modal-card');
+    if (modalCard) {
+      var touchStartY = 0;
+      var touchDiffY = 0;
+      modalCard.addEventListener('touchstart', function (e) {
+        touchStartY = e.touches[0].clientY;
+        touchDiffY = 0;
+      }, { passive: true });
+      modalCard.addEventListener('touchmove', function (e) {
+        var y = e.touches[0].clientY;
+        touchDiffY = y - touchStartY;
+        if (touchDiffY > 0) {
+          modalCard.style.transform = 'translateY(' + touchDiffY + 'px)';
+        }
+      }, { passive: true });
+      modalCard.addEventListener('touchend', function () {
+        if (touchDiffY > 70) {
+          modalCard.style.transform = '';
+          closeInstallModal(false);
+        } else {
+          modalCard.style.transform = '';
+        }
+      });
+    }
+  }
+
+  // Backdrop click closes topmost modal only (Centralized LIFO coordinator)
   var backdropEl = $('#backdrop');
   if (backdropEl) {
     backdropEl.addEventListener('click', function () {
@@ -6189,8 +6312,12 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     }
   });
 
-  // History popstate handles modal first, then sheet
+  // History popstate handles modal first, then sheet (with ignoreNextPop guard)
   window.addEventListener('popstate', function (e) {
+    if (ignoreNextPop) {
+      ignoreNextPop = false;
+      return;
+    }
     var modal = $('#appInstallModal');
     if (modal && modal.classList.contains('show')) {
       closeInstallModal(true);
@@ -6227,19 +6354,6 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     </div>
 
     <button type="button" class="btn ios-modal-btn" id="closeInstallModalBtn">Đã hiểu</button>
-  </div>
-</div>
-      <div class="ios-step-row">
-        <span class="ios-step-num">2</span>
-        <div class="ios-step-txt">Cuộn tìm và nhấn chọn mục <strong>"Thêm vào MH chính"</strong> (Add to Home Screen <span class="ios-badge-icon">➕</span>).</div>
-      </div>
-      <div class="ios-step-row">
-        <span class="ios-step-num">3</span>
-        <div class="ios-step-txt">Nhấn <strong>"Thêm"</strong> (Add) ở góc trên bên phải để hoàn tất.</div>
-      </div>
-    </div>
-
-    <button type="button" class="btn ios-modal-btn" id="closeIosModalBtn">Đã hiểu</button>
   </div>
 </div>
 
