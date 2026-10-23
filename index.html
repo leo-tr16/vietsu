@@ -58,6 +58,7 @@
   })();
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;600&display=swap');
 /**
  * =========================================================================
  * VIỆT SỬ — DESIGN SYSTEM & STYLES · PHƯƠNG ÁN B "DI SẢN HIỆN ĐẠI"
@@ -1224,223 +1225,255 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 
 
 /* =====================================================================
-   APPLE BOOKS DARK THEME — BỘ PALETTE ĐÊM CHO CHUẨN EDITORIAL READER
+   KHAY CHI TIẾT · TÔNG WIKIPEDIA (thay cho "Apple Books Dark Theme")
+   - Chỉ áp dụng cho khay chi tiết (.sheet). Thẻ danh sách giữ nguyên.
+   - Màu chỉ còn 3 vai: Chữ (than) · Cấu trúc (viền xám) · Liên kết (đỏ son).
+   - Ngoại lệ duy nhất: dải tiêu đề Infobox tô nhạt theo loại thẻ
+     (giống nhận diện ở thẻ danh sách) + avatar đầu khay dạng tab.
+   - Tiêu đề H1/H2 dùng Noto Serif (đủ dấu chồng tiếng Việt), thân bài
+     giữ Be Vietnam Pro. Dark mode chạy hoàn toàn bằng token, không !important.
    ===================================================================== */
-.sh-subheading {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: #8A6A3A;
-  margin: 18px 0 8px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+:root {
+  --sheet-bg: #FAF8F5;
+  --sheet-glass: rgba(250, 248, 245, 0.94);
+  --wk-panel: #F3F0EA;
+  --wk-line: rgba(60, 40, 20, 0.09);
+  --wk-frame: rgba(60, 40, 20, 0.22);
+  --wk-ink: #1F1B16;          /* 16.0:1 trên nền khay */
+  --wk-ink-2: #2D2721;        /* thân bài · 13.6:1 */
+  --wk-mute: #5E574F;         /* meta · 6.6:1 (AA) */
+  --wk-link-line: rgba(155, 44, 44, 0.38);
+  --f-serif: 'Noto Serif', Georgia, 'Times New Roman', serif;
+}
+:root[data-theme="dark"] {
+  --sheet-bg: #151311;
+  --sheet-glass: rgba(21, 19, 17, 0.94);
+  --wk-panel: #1E1B17;
+  --wk-line: rgba(255, 240, 220, 0.08);
+  --wk-frame: rgba(255, 240, 220, 0.2);
+  --wk-ink: #F3EFE8;
+  --wk-ink-2: #E2DDD5;
+  --wk-mute: #A39B8F;         /* 6.9:1 trên #151311 */
+  --wk-link-line: rgba(232, 135, 123, 0.45);
 }
 
-:root[data-theme="dark"] .sheet {
-  background: #151311 !important;
+/* Biến dùng chung cho khối ảnh/bản đồ/chứng tích (trước đây rơi vào fallback) */
+.sheet {
+  --bg-card: var(--wk-panel);
+  --bg-secondary: var(--sheet-bg);
+  --bg-hover: var(--wk-line);
+  --border: var(--wk-frame);
+  --txt: var(--wk-ink);
+  --txt-sub: var(--wk-mute);
+  --primary: var(--ac);
+  background: var(--sheet-bg);
+}
+.sheet::after { background: var(--sheet-bg); }
+.sheet-bar { background: var(--sheet-bg); }
+:root[data-theme="dark"] .sheet-bar { border-bottom: 1px solid var(--wk-line); }
+.sheet-bar-title { color: var(--wk-ink); }
+.sheet .sh-toc { background: var(--sheet-bg); }
+.sheet .sh-head { border-bottom-color: var(--wk-line); }
+
+/* ---------- Tiêu đề bài (H1) + dòng giới thiệu ---------- */
+.sheet .sh-title,
+.sheet .sh-wiki-main-title {
+  font-family: var(--f-serif); font-weight: 500; font-size: 25px; line-height: 1.32;
+  letter-spacing: 0; color: var(--wk-ink);
+  padding-bottom: 8px; margin: 0 0 8px; border-bottom: 1px solid var(--wk-frame);
+}
+.sheet .sh-title { font-size: 23px; }
+.sheet .sh-meta {
+  font-size: 13px; font-weight: 500; color: var(--wk-mute); letter-spacing: 0; margin: 0 0 2px;
+}
+.sheet .sh-sub { color: var(--wk-mute); margin-top: 2px; }
+.sheet .sh-wiki-lead-badge {
+  display: block; background: none; padding: 0; border-radius: 0; margin: 0 0 2px;
+  font-size: 13px; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--wk-mute);
+}
+.sheet .sh-wiki-lead-badge svg { display: none; }
+.sheet .sh-wiki-sub-title { color: var(--wk-mute); font-size: 13.5px; margin-bottom: 16px; }
+
+/* ---------- Infobox chuẩn Wikipedia ---------- */
+.sheet .sh-wiki-infobox {
+  background: var(--wk-panel); border: 1px solid var(--wk-frame); border-radius: 6px;
+  padding: 0; margin: 14px 0 22px; box-shadow: none; overflow: hidden;
+}
+.sheet .sh-wiki-infobox-hdr {
+  display: block; text-align: center; padding: 10px 14px; margin: 0;
+  background: var(--ib-band, var(--ac-soft)); border-bottom: 1px solid var(--wk-frame);
+}
+.sheet .sh-wiki-infobox-hdr .av,
+.sheet .sh-wiki-infobox-hdr .bi { display: none; }
+.sheet .sh-wiki-infobox-name {
+  font-family: var(--f-serif); font-size: 17px; font-weight: 600; line-height: 1.35; color: var(--wk-ink);
+}
+.sheet .sh-wiki-infobox-tag { font-size: 12.5px; font-weight: 400; color: var(--wk-ink-2); margin-top: 2px; }
+.sheet .sh-wiki-infobox-table { padding: 2px 14px 6px; }
+.sheet .sh-wiki-infobox-row { border-bottom: 1px solid var(--wk-line); padding: 7px 0; }
+.sheet .sh-wiki-infobox-row:last-child { border-bottom: none; }
+.sheet .sh-wiki-infobox-lbl { color: var(--wk-ink); font-weight: 600; font-size: 13px; }
+.sheet .sh-wiki-infobox-val { color: var(--wk-ink-2); font-weight: 400; }
+.sheet .sh-wiki-infobox-val b,
+.sheet .sh-wiki-result { color: var(--wk-ink); font-weight: 600; }
+.sheet .sh-wiki-infobox-val .sh-pill {
+  background: transparent; color: var(--wk-ink-2); border: 1px solid var(--wk-frame); box-shadow: none;
+}
+/* Dải màu nhận diện — đồng bộ với thẻ danh sách */
+.sh-wiki-infobox.ib-period,
+.sh-wiki-infobox.ib-person { --ib-band: var(--ac-soft); }
+.sh-wiki-infobox.ib-person.k-gold { --ib-band: var(--gold-soft); }
+.sh-wiki-infobox.ib-person.k-green { --ib-band: var(--green-soft); }
+.sh-wiki-infobox.ib-person.k-neutral,
+.sh-wiki-infobox.ib-battle { --ib-band: var(--neutral-soft); }
+
+/* ---------- Mục lục nhảy nhanh & tab ---------- */
+.sheet .sh-wiki-jump-bar { background: var(--sheet-glass); border-bottom: 1px solid var(--wk-line); }
+.sheet .sh-wiki-jump-pill { color: var(--wk-mute); }
+.sheet .sh-wiki-jump-pill:hover { color: var(--wk-ink); background: var(--wk-line); }
+.sheet .sh-wiki-jump-pill.active {
+  color: var(--wk-ink); background: transparent; border-radius: 0; box-shadow: inset 0 -2px 0 var(--ac);
+}
+.sheet .sh-toc-item { color: var(--wk-mute); }
+.sheet .sh-toc-item.active { color: var(--wk-ink); }
+
+/* ---------- Đề mục H2 / H3 ---------- */
+.sheet .sh-wiki-h2 {
+  font-family: var(--f-serif); font-size: 19.5px; font-weight: 500; line-height: 1.35; color: var(--wk-ink);
+  border-bottom: 1px solid var(--wk-frame); margin: 30px 0 12px; padding-bottom: 6px;
+}
+.sheet .sh-wiki-h2:first-of-type { margin-top: 8px; }
+.sheet .sh-wiki-h2-num { display: none; }
+.sheet .sh-wiki-h2-text { color: inherit; letter-spacing: 0; }
+.sheet .sh-subheading {
+  font-size: 15.5px; font-weight: 600; color: var(--wk-ink);
+  text-transform: none; letter-spacing: 0; margin: 22px 0 8px; line-height: 1.4;
+}
+.sheet .sh-subheading:first-child { margin-top: 0; }
+
+/* ---------- Thân bài ---------- */
+.sheet .sh-narrative-p,
+.sheet .sh-summary-p,
+.sheet .sh-contribution-item { color: var(--wk-ink-2); }
+.sheet .sh-narrative-p strong,
+.sheet .sh-contribution-item b { color: var(--wk-ink); }
+.sheet .sh-narrative-p em { color: var(--wk-ink-2); }
+.sheet p, .sheet li, .sheet .sh-legacy-txt, .sheet .sh-timeline-content { text-wrap: pretty; hyphens: manual; }
+
+/* Liên kết: đỏ son là màu duy nhất cho thứ bấm được */
+.sheet .sh-inline-link {
+  color: var(--ac); font-size: inherit; font-weight: 500; text-decoration-color: var(--wk-link-line);
+}
+.sheet .sh-inline-link:hover,
+.sheet .sh-inline-link:active { color: var(--ac); text-decoration-color: currentColor; }
+.sheet .sh-cross-link-btn {
+  display: inline; background: none; border: none; border-radius: 0; padding: 0; margin: 0;
+  color: var(--ac); font-size: inherit; font-weight: 500; vertical-align: baseline;
+  text-decoration: underline; text-decoration-color: var(--wk-link-line);
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.sheet .sh-cross-link-btn svg { vertical-align: -1px; opacity: .7; }
+.sheet .sh-cross-link-btn:hover { background: none; color: var(--ac); border: none; transform: none; box-shadow: none; text-decoration-color: currentColor; }
+
+/* ---------- Nhãn bằng chứng: [chính sử] kiểu chú thích Wikipedia ---------- */
+.sheet .ev-badge[class] {
+  background: none; color: var(--wk-mute); padding: 0; border-radius: 0; margin: 0 1px;
+  font-size: 11.5px; font-weight: 500; letter-spacing: 0; line-height: 1; vertical-align: super;
+}
+.sheet .ev-badge::before { content: '['; }
+.sheet .ev-badge::after { content: ']'; }
+.sheet .ev-badge.giathuyet, .sheet .ev-badge.truyenngon, .sheet .ev-badge.truyenthuyet,
+.sheet .ev-badge.tranhluan, .sheet .ev-badge.tieuthuyet { font-style: italic; }
+/* Nhãn đứng đầu mục liệt kê & trong trích dẫn: nằm trên dòng chữ, đậm hơn */
+.sheet li > .ev-badge[class]:first-child,
+.sheet .quote .ev-badge[class] {
+  vertical-align: baseline; font-size: 12.5px; font-weight: 600; margin: 0 4px 0 0;
 }
 
-:root[data-theme="dark"] .sheet::after {
-  background: #151311 !important;
+/* ---------- Trích dẫn ---------- */
+.sheet .quote {
+  background: none; border-left: 2px solid var(--wk-frame); border-radius: 0;
+  padding: 2px 0 2px 16px; margin: 18px 0 22px 4px;
+}
+.sheet .quote p { font-weight: 400; font-size: 16px; color: var(--wk-ink-2); }
+.sheet .quote cite { color: var(--wk-mute); font-weight: 500; }
+
+/* ---------- Danh sách ---------- */
+.sheet .sh-bullet-list li, .sheet .sh-key-list li { color: var(--wk-ink-2); }
+.sheet .sh-bullet-list li::before, .sheet .sh-key-list li::before {
+  width: 5px; height: 5px; top: 12px; left: 4px; background: var(--wk-mute);
 }
 
-:root[data-theme="dark"] .sheet-bar {
-  background: #151311 !important;
-  border-bottom: 1px solid rgba(255, 240, 220, 0.08) !important;
+/* ---------- Niên biểu (dạng tab) ---------- */
+.sheet .sh-timeline::before { width: 1px; left: 6px; background: var(--wk-frame); }
+.sheet .sh-timeline-row { border-bottom: none; padding: 6px 0 12px 14px; }
+.sheet .sh-timeline-row::before {
+  width: 9px; height: 9px; left: -18px; top: 13px; box-sizing: border-box;
+  background: var(--sheet-bg); border: 1.5px solid var(--wk-mute); box-shadow: none;
 }
+.sheet .sh-timeline-time {
+  background: none; padding: 0; border-radius: 0; margin-bottom: 2px;
+  color: var(--wk-ink); font-size: 14.5px; font-weight: 700; letter-spacing: 0;
+}
+.sheet .sh-timeline-content { color: var(--wk-ink-2); }
 
-:root[data-theme="dark"] .sheet-bar-title {
-  color: #F3EFE8 !important;
+/* ---------- Niên biểu (dạng bài Wiki) ---------- */
+.sheet .sh-wiki-timeline-card { background: none; border: none; box-shadow: none; padding: 0; margin: 8px 0 18px; border-radius: 0; }
+.sheet .sh-wiki-timeline-title { color: var(--wk-mute); font-size: 12.5px; font-weight: 600; text-transform: none; letter-spacing: 0; }
+.sheet .sh-wiki-timeline-strip { border-bottom: 1px solid var(--wk-line); }
+.sheet .sh-wiki-m-chip { background: none; padding: 0; color: var(--wk-ink-2); font-weight: 600; }
+.sheet .sh-wiki-m-arr { color: var(--wk-mute); }
+.sheet .sh-wiki-timeline-list::before { width: 1px; background: var(--wk-frame); }
+.sheet .sh-wiki-timeline-item { color: var(--wk-ink-2); border-bottom: none; font-size: 15px; line-height: 1.65; padding-bottom: 10px; }
+.sheet .sh-wiki-timeline-item::before {
+  width: 8px; height: 8px; left: -14.5px; top: 9px; box-sizing: border-box;
+  background: var(--sheet-bg); border: 1.5px solid var(--wk-mute); box-shadow: none;
 }
+.sheet .sh-wiki-timeline-item .sh-t-time { color: var(--wk-ink); font-size: 14px; }
 
-:root[data-theme="dark"] .sh-wiki-main-title {
-  color: #F3EFE8 !important;
-}
+/* ---------- Khảo biện: đề mục con + đoạn văn phẳng (bỏ hộp lồng hộp) ---------- */
+.sheet .sh-essay-flow { gap: 16px; }
+.sheet .sh-essay-card { background: none; border: none; border-radius: 0; padding: 0; }
+.sheet .sh-essay-topic { font-size: 15.5px; font-weight: 600; color: var(--wk-ink); letter-spacing: 0; margin-bottom: 4px; line-height: 1.45; }
+.sheet .sh-essay-card .sh-narrative-p { font-size: 16px; line-height: 1.72; color: var(--wk-ink-2); }
 
-:root[data-theme="dark"] .sh-wiki-sub-title {
-  color: #A39B8F !important;
-}
+/* ---------- Di sản: danh sách chấm tròn ---------- */
+.sheet .sh-legacy-flow { gap: 8px; }
+.sheet .sh-legacy-card { background: none; border: none; border-radius: 0; padding: 0; gap: 12px; font-size: 16px; line-height: 1.68; }
+.sheet .sh-legacy-icon { margin-top: 0; width: 9px; height: 27px; }
+.sheet .sh-legacy-icon svg { display: none; }
+.sheet .sh-legacy-icon::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--wk-mute); }
+.sheet .sh-legacy-txt { color: var(--wk-ink-2); }
 
-:root[data-theme="dark"] .sh-wiki-lead-badge {
-  color: #D4B483 !important;
-  background: rgba(212, 180, 131, 0.12) !important;
-}
+/* ---------- Bảng thông số (dạng tab) = infobox thu gọn ---------- */
+.sheet .sh-rows { background: var(--wk-panel); border: 1px solid var(--wk-frame); border-radius: 6px; }
+.sheet .sh-row { border-bottom-color: var(--wk-line); }
+.sheet .sh-row-label { color: var(--wk-ink); font-weight: 600; }
+.sheet .sh-row-val { color: var(--wk-ink-2); font-weight: 400; }
 
-/* Infobox Bento Card Night Palette */
-:root[data-theme="dark"] .sh-wiki-infobox {
-  background: #1E1B17 !important;
-  border: 1px solid rgba(255, 240, 220, 0.09) !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+/* ---------- Nút & pill trung tính ---------- */
+.sheet .sh-pill { background: transparent; box-shadow: 0 0 0 1px var(--wk-frame); color: var(--wk-ink); }
+.sheet .sh-pill-expand { background: var(--wk-line); box-shadow: none; color: var(--wk-ink-2); }
+.sheet .sh-next-tab-btn,
+.sheet .sh-timeline-jump-btn {
+  background: var(--wk-panel); border: 1px solid var(--wk-frame); color: var(--wk-ink-2);
 }
+.sheet .sh-next-tab-btn:hover, .sheet .sh-next-tab-btn:active,
+.sheet .sh-timeline-jump-btn:active {
+  background: var(--wk-line); border-color: var(--wk-frame); color: var(--wk-ink);
+}
+.sheet .sh-timeline-jump-btn svg { stroke: currentColor; }
 
-:root[data-theme="dark"] .sh-wiki-infobox-hdr {
-  border-bottom: 1px solid rgba(255, 240, 220, 0.08) !important;
-}
+/* ---------- Ảnh, bản đồ, chứng tích: bỏ bóng, viền mảnh ---------- */
+.sheet .sh-wiki-thumb,
+.sheet .sh-evidence-showcase { box-shadow: none; border-radius: 6px; }
+.sheet .sh-evidence-card,
+.sheet .sh-evidence-single-card { box-shadow: none; border-radius: 6px; }
+.sheet .sh-evidence-card:hover,
+.sheet .sh-evidence-single-card:hover { box-shadow: none; transform: none; }
+.sheet .sh-evidence-showcase-title svg { color: var(--wk-mute); }
+.sheet .sh-evidence-card-name { font-weight: 600; }
 
-:root[data-theme="dark"] .sh-wiki-infobox-name {
-  color: #F3EFE8 !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-infobox-tag {
-  color: #D4B483 !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-infobox-row {
-  border-bottom: 1px solid rgba(255, 240, 220, 0.06) !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-infobox-lbl {
-  color: #9E9588 !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-infobox-val {
-  color: #E2DDD5 !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-infobox-val .sh-pill {
-  background: #2A2520 !important;
-  color: #E2DDD5 !important;
-  border: 1px solid rgba(255, 240, 220, 0.12) !important;
-}
-
-/* Quick Jump Bar Night Palette */
-:root[data-theme="dark"] .sh-wiki-jump-bar {
-  mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
-  background: rgba(21, 19, 17, 0.94) !important;
-  border-bottom: 1px solid rgba(255, 240, 220, 0.08) !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-jump-pill {
-  color: #A39B8F !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-jump-pill:hover {
-  color: #F3EFE8 !important;
-  background: rgba(255, 240, 220, 0.06) !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-jump-pill.active {
-  color: #F3EFE8 !important;
-  background: rgba(212, 180, 131, 0.12) !important;
-  box-shadow: inset 0 -2px 0 #D4B483 !important;
-}
-
-/* Headings H2 */
-:root[data-theme="dark"] .sh-wiki-h2 {
-  color: #F3EFE8 !important;
-  border-bottom: 1px solid rgba(255, 240, 220, 0.08) !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-h2-num {
-  color: #D4B483 !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-h2-text {
-  color: #F3EFE8 !important;
-}
-
-/* Reading Typography */
-:root[data-theme="dark"] .sh-narrative-p {
-  color: #E2DDD5 !important;
-}
-
-:root[data-theme="dark"] .sh-narrative-p strong {
-  color: #F3EFE8 !important;
-}
-
-:root[data-theme="dark"] .sh-narrative-p em {
-  color: #D0C8BD !important;
-}
-
-/* Wikilinks */
-:root[data-theme="dark"] .sh-inline-link {
-  color: #E27D60;
-  text-decoration-color: rgba(226, 125, 96, 0.45);
-}
-
-:root[data-theme="dark"] .sh-inline-link:hover,
-:root[data-theme="dark"] .sh-inline-link:active {
-  color: #89BEFB !important;
-  text-decoration-color: #89BEFB !important;
-}
-
-/* Subheading */
-:root[data-theme="dark"] .sh-subheading {
-  color: #D4B483 !important;
-}
-
-/* Chronology Timeline Card */
-:root[data-theme="dark"] .sh-wiki-timeline-card {
-  background: #1E1B17 !important;
-  border: 1px solid rgba(255, 240, 220, 0.09) !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-timeline-title {
-  color: #CFC8BD !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-timeline-item {
-  color: #E2DDD5 !important;
-  border-bottom-color: rgba(255, 240, 220, 0.08) !important;
-}
-
-:root[data-theme="dark"] .sh-wiki-timeline-item .sh-t-time {
-  color: #D4B483 !important;
-}
-
-/* Khảo biện học thuật & Essay Flow */
-:root[data-theme="dark"] .sh-essay-card {
-  background: #1E1B17 !important;
-  border-left-color: #D4B483 !important;
-  border-top: 1px solid rgba(255, 240, 220, 0.06);
-  border-right: 1px solid rgba(255, 240, 220, 0.06);
-  border-bottom: 1px solid rgba(255, 240, 220, 0.06);
-}
-
-:root[data-theme="dark"] .sh-essay-topic {
-  color: #D4B483 !important;
-}
-
-:root[data-theme="dark"] .sh-essay-card .sh-narrative-p {
-  color: #E2DDD5 !important;
-}
-
-/* Legacy Card */
-:root[data-theme="dark"] .sh-legacy-card {
-  background: #1E1B17 !important;
-  border-color: rgba(255, 240, 220, 0.08) !important;
-}
-
-:root[data-theme="dark"] .sh-legacy-txt {
-  color: #E2DDD5 !important;
-}
-
-/* Evidence Card */
-:root[data-theme="dark"] .sh-evidence-card,
-:root[data-theme="dark"] .sh-evidence-single-card {
-  background: #1E1B17 !important;
-  border-color: rgba(255, 240, 220, 0.08) !important;
-}
-
-/* Trích dẫn Cổ sử */
-:root[data-theme="dark"] .quote {
-  background: rgba(212, 180, 131, 0.08) !important;
-  border-left-color: #D4B483 !important;
-}
-
-:root[data-theme="dark"] .quote p {
-  color: #E8E2D8 !important;
-}
-
-:root[data-theme="dark"] .quote cite {
-  color: #D4B483 !important;
-}
-
-/* Hộp Modal Thông tin / Hướng dẫn tra cứu */
-:root[data-theme="dark"] .sh-head {
-  border-bottom-color: rgba(255, 240, 220, 0.08);
-}
 
 /* =====================================================================
    TACTICAL VECTOR MAP — SƠ ĐỒ TÁC CHIẾN & KHÔNG GIAN ĐỊA LÝ LỊCH SỬ
@@ -2528,7 +2561,6 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
   background: var(--gold-soft, rgba(176, 141, 87, 0.16));
   border-color: var(--gold-light, #8A6A3A);
 }
-
 </style>
 </head>
 <body>
@@ -3437,8 +3469,8 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
   function head(metaLine, title, sub, lead) {
     return '<div class="sh-head">' + (lead ? '<div class="sh-lead" aria-hidden="true">' + lead + '</div>' : '') +
       '<div class="sh-head-txt">' +
-      '<span class="sh-meta">' + esc(metaLine) + '</span>' +
       '<h2 class="sh-title">' + esc(title) + '</h2>' +
+      '<span class="sh-meta">' + esc(metaLine) + '</span>' +
       (sub ? '<div class="sh-sub">' + esc(sub) + '</div>' : '') +
       '</div></div>';
   }
@@ -4077,15 +4109,15 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 
       // Header & Infobox Wrap
       var html = '<div class="sh-wiki-wrap">' +
+        '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
         '<div class="sh-wiki-lead-badge">' +
         '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg>' +
         '<span>Bách khoa toàn thư · Nhân vật lịch sử Đại Việt</span>' +
         '</div>' +
-        '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
         '<div class="sh-wiki-sub-title">(1019 – 1105) · Tên thật: Ngô Tuấn · Thái úy Quốc công ba triều Lý</div>' +
 
         // Infobox
-        '<div class="sh-wiki-infobox">' +
+        '<div class="sh-wiki-infobox ib-person ' + kindClass(x.kind) + '">' +
         '  <div class="sh-wiki-infobox-hdr">' +
         '    <div class="av ' + kindClass(x.kind) + '" aria-hidden="true">' + esc(initials(x.name)) + '</div>' +
         '    <div class="sh-wiki-infobox-hdr-txt">' +
@@ -4287,15 +4319,15 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       }
 
       var html = '<div class="sh-wiki-wrap">' +
+        '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
         '<div class="sh-wiki-lead-badge">' +
         '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg>' +
         '<span>Bách khoa toàn thư · Nhân vật lịch sử Đại Việt</span>' +
         '</div>' +
-        '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
         '<div class="sh-wiki-sub-title">(' + esc(x.years) + ')' + (x.alias ? ' · Tên thật: ' + esc(x.alias) : '') + (cleanedTitles ? ' · ' + esc(cleanedTitles) : (x.role ? ' · ' + esc(x.role.split('·')[0].trim()) : '')) + '</div>' +
 
         // Infobox
-        '<div class="sh-wiki-infobox">' +
+        '<div class="sh-wiki-infobox ib-person ' + kindClass(x.kind) + '">' +
         '  <div class="sh-wiki-infobox-hdr">' +
         '    <div class="av ' + kindClass(x.kind) + '" aria-hidden="true">' + esc(initials(x.name)) + '</div>' +
         '    <div class="sh-wiki-infobox-hdr-txt">' +
@@ -4477,17 +4509,17 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       var pIcon = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><path d="M12 2 L13.2 8.5 L19 5 L15.5 10.8 L22 12 L15.5 13.2 L19 19 L13.2 15.5 L12 22 L10.8 15.5 L5 19 L8.5 13.2 L2 12 L8.5 10.8 L5 5 L10.8 8.5 Z"/></svg>';
 
       var pWrap = '<div class="sh-wiki-wrap">' +
+        '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
         '<div class="sh-wiki-lead-badge">' +
         pIcon +
         '<span>Thời kỳ lịch sử · ' + esc(eraLabel(x.era)) + '</span>' +
         '</div>' +
-        '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
         '<div class="sh-wiki-sub-title">' + esc(x.years) + (x.kinhDo ? ' · Kinh đô: ' + esc(x.kinhDo.split('–')[0].trim()) : '') + (x.quocHieu ? ' · Quốc hiệu: ' + esc(x.quocHieu) : '') + '</div>' +
 
         // Infobox
-        '<div class="sh-wiki-infobox">' +
+        '<div class="sh-wiki-infobox ib-period">' +
         '  <div class="sh-wiki-infobox-hdr">' +
-        '    <div class="bi" aria-hidden="true" style="background:rgba(140, 94, 36, 0.12); color:#8C5E24;">' + pIcon + '</div>' +
+        '    <div class="bi" aria-hidden="true">' + pIcon + '</div>' +
         '    <div class="sh-wiki-infobox-hdr-txt">' +
         '      <div class="sh-wiki-infobox-name">' + esc(x.name) + '</div>' +
         '      <div class="sh-wiki-infobox-tag">' + esc(pTag) + '</div>' +
@@ -4537,7 +4569,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
         }
       }
       if (x.result) {
-        infoboxRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Kết cục</div><div class="sh-wiki-infobox-val"><span class="sh-pill" style="background:#2F6B4F; color:#fff; font-weight:600; padding:2px 8px; border-radius:6px;">' + esc(x.result) + '</span></div></div>';
+        infoboxRows += '<div class="sh-wiki-infobox-row"><div class="sh-wiki-infobox-lbl">Kết cục</div><div class="sh-wiki-infobox-val"><b class="sh-wiki-result">' + esc(x.result) + '</b></div></div>';
       }
       if (commanders.length) {
         var cmdLinks = commanders.map(function (c) {
@@ -4674,17 +4706,17 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       var bIcon = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>';
 
       var bWrap = '<div class="sh-wiki-wrap">' +
+        '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
         '<div class="sh-wiki-lead-badge">' +
         bIcon +
         '<span>Bách khoa toàn thư · Chiến dịch &amp; Trận quyết chiến</span>' +
         '</div>' +
-        '<h1 class="sh-wiki-main-title">' + esc(x.name) + '</h1>' +
         '<div class="sh-wiki-sub-title">Năm ' + esc(x.year) + (x.place ? ' · Địa bàn: ' + esc(x.place) : '') + (x.result ? ' · Kết cục: ' + esc(x.result) : '') + '</div>' +
 
         // Infobox
-        '<div class="sh-wiki-infobox">' +
+        '<div class="sh-wiki-infobox ib-battle">' +
         '  <div class="sh-wiki-infobox-hdr">' +
-        '    <div class="bi" aria-hidden="true" style="background:rgba(155, 44, 44, 0.12); color:#9B2C2C;">' + bIcon + '</div>' +
+        '    <div class="bi" aria-hidden="true">' + bIcon + '</div>' +
         '    <div class="sh-wiki-infobox-hdr-txt">' +
         '      <div class="sh-wiki-infobox-name">' + esc(x.name) + '</div>' +
         '      <div class="sh-wiki-infobox-tag">Trận quyết chiến chiến lược định hình lịch sử</div>' +
