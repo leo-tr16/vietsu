@@ -58,7 +58,6 @@
   })();
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;600&display=swap');
 /**
  * =========================================================================
  * VIỆT SỬ — DESIGN SYSTEM & STYLES · PHƯƠNG ÁN B "DI SẢN HIỆN ĐẠI"
@@ -77,6 +76,8 @@
 /* ========================= DESIGN TOKENS ========================= */
 :root {
   --bg: #F5F3EF;
+  --sheet-bg: #FAF8F5;
+  --sheet-glass: rgba(250, 248, 245, 0.94);
   --card: #FFFFFF;
   --card-2: #F8F6F2;
   --card-alt: #F1ECE1;
@@ -148,6 +149,9 @@
   --bg: #12100D;
   --card: #1C1915;
   --card-2: #24201B;
+  --card-alt: #24201B;
+  --sheet-bg: #151311;
+  --sheet-glass: rgba(21, 19, 17, 0.94);
   --glass: rgba(18, 16, 13, 0.9);
   --text: #F3EFE8;
   --text-2: #CFC8BD;
@@ -448,7 +452,7 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 .sheet {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; width: 100%; max-width: 100%; margin: 0 auto;
   max-height: 92vh; max-height: 92dvh; display: flex; flex-direction: column;
-  background: #FAF8F5; border-radius: 24px 24px 0 0;
+  background: var(--sheet-bg); border-radius: 24px 24px 0 0;
   box-shadow: var(--shadow-sheet); transform: translateY(105%); transition: transform .42s cubic-bezier(.22, 1, .36, 1);
 }
 .sheet.expanded {
@@ -466,7 +470,7 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 
 .sheet-bar {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 2px 14px 8px; flex-shrink: 0; background: #FAF8F5; min-height: 46px;
+  padding: 2px 14px 8px; flex-shrink: 0; background: var(--sheet-bg); min-height: 46px;
   border-bottom: 1px solid rgba(60, 40, 20, 0.05);
 }
 .sheet-bar-title {
@@ -535,17 +539,17 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 .sh-narrative-p {
   font-size: 16px;
   line-height: 1.72;
-  color: #2D2721;
+  color: var(--text);
   margin: 0 0 16px;
   text-align: left;
   letter-spacing: -0.005em;
 }
 .sh-narrative-p strong {
-  color: #1F1B16;
+  color: var(--text);
   font-weight: 600;
 }
 .sh-narrative-p em {
-  color: #3A332C;
+  color: var(--text-2);
   font-style: italic;
 }
 .sh-narrative-p:last-child { margin-bottom: 0; }
@@ -576,8 +580,8 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 }
 .sh-inline-link:hover,
 .sh-inline-link:active {
-  color: #7A2020;
-  text-decoration-color: #7A2020;
+  color: var(--ac);
+  text-decoration-color: currentColor;
 }
 
 /* Bullets */
@@ -830,62 +834,62 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 .sh-wiki-lead-badge {
   display: inline-flex; align-items: center; gap: 5px;
   font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.08em; color: #8A6A3A; background: rgba(138, 106, 58, 0.10);
+  letter-spacing: 0.08em; color: var(--gold-text); background: var(--gold-soft);
   padding: 3px 8px; border-radius: 5px; margin-bottom: 8px;
 }
 .sh-wiki-main-title {
   font-size: 24px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25;
-  color: #1F1B16; margin: 0 0 4px;
+  color: var(--text); margin: 0 0 4px;
 }
 .sh-wiki-sub-title {
-  font-size: 14px; color: #7A7267; margin-bottom: 14px; line-height: 1.45;
+  font-size: 14px; color: var(--text-3); margin-bottom: 14px; line-height: 1.45;
 }
 
 /* Wikipedia Infobox (Bento Card Giấy Ngà Ấm) */
 .sh-wiki-infobox {
-  background: #F3EFE6;
-  border: 1px solid rgba(60, 40, 20, 0.08);
+  background: var(--card-alt);
+  border: 1px solid var(--hair-strong);
   border-radius: 14px; padding: 14px 16px; margin: 12px 0 18px;
-  box-shadow: 0 1px 3px rgba(60, 40, 20, 0.04);
+  box-shadow: var(--shadow-1);
 }
 .sh-wiki-infobox-hdr {
   display: flex; align-items: center; gap: 12px; padding-bottom: 10px;
-  border-bottom: 1px solid rgba(60, 40, 20, 0.08); margin-bottom: 10px;
+  border-bottom: 1px solid var(--hair); margin-bottom: 10px;
 }
 .sh-wiki-infobox-hdr .av {
   width: 46px; height: 46px; border-radius: 12px; font-size: 18px; flex-shrink: 0;
 }
 .sh-wiki-infobox-hdr .bi {
   width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
-  display: grid; place-items: center; background: rgba(138, 106, 58, 0.12); color: #8A6A3A;
+  display: grid; place-items: center; background: var(--gold-soft); color: var(--gold-text);
 }
 .sh-wiki-infobox-hdr .bi svg { width: 22px; height: 22px; }
 .sh-wiki-infobox-hdr-txt { flex: 1; min-width: 0; }
-.sh-wiki-infobox-name { font-size: 16.5px; font-weight: 700; color: #1F1B16; line-height: 1.3; }
-.sh-wiki-infobox-tag { font-size: 12px; color: #8A6A3A; font-weight: 600; margin-top: 2px; }
+.sh-wiki-infobox-name { font-size: 16.5px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.sh-wiki-infobox-tag { font-size: 12px; color: var(--gold-text); font-weight: 600; margin-top: 2px; }
 .sh-wiki-infobox-table { display: flex; flex-direction: column; }
 .sh-wiki-infobox-row {
   display: flex; align-items: baseline; gap: 12px; padding: 7px 0;
-  border-bottom: 1px solid rgba(60, 40, 20, 0.06); font-size: 14px; line-height: 1.5;
+  border-bottom: 1px solid var(--hair); font-size: 14px; line-height: 1.5;
 }
 .sh-wiki-infobox-row:last-child { border-bottom: none; padding-bottom: 0; }
 .sh-wiki-infobox-lbl {
-  flex: 0 0 102px; width: 102px; color: #7A7267; font-size: 12.5px; font-weight: 500;
+  flex: 0 0 102px; width: 102px; color: var(--text-3); font-size: 12.5px; font-weight: 500;
 }
-.sh-wiki-infobox-val { flex: 1; min-width: 0; color: #2D2721; font-weight: 500; }
+.sh-wiki-infobox-val { flex: 1; min-width: 0; color: var(--text); font-weight: 500; }
 .sh-wiki-infobox-val .sh-pill {
-  background: #EAE4D6; color: #2D2721; border: 1px solid rgba(60, 40, 20, 0.08);
+  background: var(--card); color: var(--text); border: 1px solid var(--hair-strong);
   font-size: 12.5px; padding: 2px 8px; border-radius: 6px;
 }
 
-/* Wikipedia Quick Jump Nav (Thanh mục lục thanh nhã, không nhức mắt) */
+/* Wikipedia Quick Jump Nav */
 .sh-wiki-jump-bar {
   mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
   -webkit-mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
   position: sticky; top: 0; z-index: 10;
-  background: rgba(250, 248, 245, 0.94);
+  background: var(--sheet-glass);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  display: flex; gap: 4px; border-bottom: 1px solid rgba(60, 40, 20, 0.08);
+  display: flex; gap: 4px; border-bottom: 1px solid var(--hair);
   margin: 0 -22px 16px; padding: 7px 22px; overflow-x: auto;
   -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
@@ -893,44 +897,44 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
 .sh-wiki-jump-pill {
   flex-shrink: 0; height: 28px; padding: 0 9px; border-radius: 6px;
   background: transparent; border: none;
-  color: #7A7267; font-size: 12px; font-weight: 500;
+  color: var(--text-3); font-size: 12px; font-weight: 500;
   display: inline-flex; align-items: center; transition: all .15s ease;
   white-space: nowrap; cursor: pointer;
 }
 .sh-wiki-jump-pill:hover {
-  color: #1F1B16; background: rgba(60, 40, 20, 0.04);
+  color: var(--text); background: var(--neutral-soft);
 }
 .sh-wiki-jump-pill.active {
-  color: #1F1B16; font-weight: 600;
-  background: rgba(60, 40, 20, 0.06);
+  color: var(--text); font-weight: 600;
+  background: var(--neutral-soft);
   border-radius: 6px;
-  box-shadow: inset 0 -2px 0 #8A6A3A;
+  box-shadow: inset 0 -2px 0 var(--ac);
 }
 
-/* Wikipedia Headings (H2 thanh nhã, hòa quyện với dòng đọc) */
+/* Wikipedia Headings */
 .sh-wiki-h2 {
   display: flex; align-items: baseline; gap: 4px;
-  font-size: 16px; font-weight: 600; color: #1F1B16;
+  font-size: 16px; font-weight: 600; color: var(--text);
   margin: 24px 0 12px; padding-bottom: 6px;
-  border-bottom: 1px solid rgba(60, 40, 20, 0.08);
+  border-bottom: 1px solid var(--hair);
   scroll-margin-top: 48px;
 }
 .sh-wiki-h2:first-of-type { margin-top: 6px; }
 .sh-wiki-h2-num {
-  font-size: 14.5px; font-weight: 600; color: #8A6A3A;
+  font-size: 14.5px; font-weight: 600; color: var(--gold-text);
   margin-right: 4px;
 }
-.sh-wiki-h2-text { flex: 1; letter-spacing: -0.01em; color: #1F1B16; }
+.sh-wiki-h2-text { flex: 1; letter-spacing: -0.01em; color: var(--text); }
 .sh-wiki-sec { margin-bottom: 22px; }
 
-/* Chronology Explorer Card (Biên niên sử tra cứu tinh gọn) */
+/* Chronology Explorer Card */
 .sh-wiki-timeline-card {
-  background: #F3EFE6;
-  border: 1px solid rgba(60, 40, 20, 0.08);
+  background: var(--card-alt);
+  border: 1px solid var(--hair-strong);
   border-radius: 14px;
   padding: 13px 15px;
   margin: 10px 0 16px;
-  box-shadow: 0 1px 3px rgba(60, 40, 20, 0.04);
+  box-shadow: var(--shadow-1);
 }
 .sh-wiki-timeline-hdr {
   display: flex;
@@ -967,6 +971,54 @@ main { max-width: 720px; margin: 0 auto; padding: 4px 16px 20px; }
   background: var(--gold-soft);
   padding: 2.5px 7.5px;
   border-radius: 6px;
+  font-feature-settings: 'tnum' 1;
+}
+.sh-wiki-m-arr {
+  color: var(--text-4);
+  font-size: 11px;
+}
+.sh-wiki-timeline-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 14px;
+}
+.sh-wiki-timeline-list::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 8px;
+  bottom: 8px;
+  width: 1.5px;
+  background: var(--hair-strong);
+}
+.sh-wiki-timeline-item {
+  position: relative;
+  padding: 4px 0 10px 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  border-bottom: 1px dashed var(--hair);
+}
+.sh-wiki-timeline-item:last-child {
+  border-bottom: none;
+  padding-bottom: 2px;
+}
+.sh-wiki-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 2px var(--bg);
+}
+.sh-wiki-timeline-item .sh-t-time {
+  font-weight: 700;
+  color: var(--gold-text);
+  margin-right: 4px;
   font-feature-settings: 'tnum' 1;
 }
 .sh-wiki-m-arr {
@@ -1212,7 +1264,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 .sheet.show { transform: translate3d(0, 0, 0); transition-duration: .42s; }   /* mở: 0,42s */
 .sheet.dragging { transition: none !important; }
 .sheet::after {                                             /* lót đáy khi kéo đàn hồi lên */
-  content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 64px; background: #FAF8F5;
+  content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 64px; background: var(--sheet-bg);
 }
 .sheet-bar { touch-action: none; }
 .sheet-scroll { flex: 1 1 auto; min-height: 0; }
@@ -1225,255 +1277,257 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 
 
 /* =====================================================================
-   KHAY CHI TIẾT · TÔNG WIKIPEDIA (thay cho "Apple Books Dark Theme")
+   KHAY CHI TIẾT · TÔNG WIKIPEDIA
    - Chỉ áp dụng cho khay chi tiết (.sheet). Thẻ danh sách giữ nguyên.
-   - Màu chỉ còn 3 vai: Chữ (than) · Cấu trúc (viền xám) · Liên kết (đỏ son).
-   - Ngoại lệ duy nhất: dải tiêu đề Infobox tô nhạt theo loại thẻ
-     (giống nhận diện ở thẻ danh sách) + avatar đầu khay dạng tab.
-   - Tiêu đề H1/H2 dùng Noto Serif (đủ dấu chồng tiếng Việt), thân bài
-     giữ Be Vietnam Pro. Dark mode chạy hoàn toàn bằng token, không !important.
+   - Màu theo Design Tokens gốc: Chữ (than) · Cấu trúc (viền xám) · Liên kết (đỏ son) · Điểm nhấn (vàng đồng).
+   - Dải tiêu đề Infobox tô nhạt theo loại thẻ (đồng bộ nhận diện thẻ danh sách).
+   - Typography thuần Be Vietnam Pro. Chữ đọc 16px / line-height 1.7.
+   - Dark mode chạy hoàn toàn bằng design tokens, không dùng !important.
    ===================================================================== */
-:root {
-  --sheet-bg: #FAF8F5;
-  --sheet-glass: rgba(250, 248, 245, 0.94);
-  --wk-panel: #F3F0EA;
-  --wk-line: rgba(60, 40, 20, 0.09);
-  --wk-frame: rgba(60, 40, 20, 0.22);
-  --wk-ink: #1F1B16;          /* 16.0:1 trên nền khay */
-  --wk-ink-2: #2D2721;        /* thân bài · 13.6:1 */
-  --wk-mute: #5E574F;         /* meta · 6.6:1 (AA) */
-  --wk-link-line: rgba(155, 44, 44, 0.38);
-  --f-serif: 'Noto Serif', Georgia, 'Times New Roman', serif;
-}
-:root[data-theme="dark"] {
-  --sheet-bg: #151311;
-  --sheet-glass: rgba(21, 19, 17, 0.94);
-  --wk-panel: #1E1B17;
-  --wk-line: rgba(255, 240, 220, 0.08);
-  --wk-frame: rgba(255, 240, 220, 0.2);
-  --wk-ink: #F3EFE8;
-  --wk-ink-2: #E2DDD5;
-  --wk-mute: #A39B8F;         /* 6.9:1 trên #151311 */
-  --wk-link-line: rgba(232, 135, 123, 0.45);
-}
 
-/* Biến dùng chung cho khối ảnh/bản đồ/chứng tích (trước đây rơi vào fallback) */
+/* Biến cục bộ cho khối ảnh / bản đồ / chứng tích */
 .sheet {
-  --bg-card: var(--wk-panel);
-  --bg-secondary: var(--sheet-bg);
-  --bg-hover: var(--wk-line);
-  --border: var(--wk-frame);
-  --txt: var(--wk-ink);
-  --txt-sub: var(--wk-mute);
+  --bg-card: var(--card-alt);
+  --bg-secondary: var(--card);
+  --bg-hover: var(--neutral-soft);
+  --border: var(--hair-strong);
+  --txt: var(--text);
+  --txt-sub: var(--text-3);
   --primary: var(--ac);
   background: var(--sheet-bg);
 }
+:root[data-theme="dark"] .sheet {
+  --bg-card: var(--card);
+}
 .sheet::after { background: var(--sheet-bg); }
-.sheet-bar { background: var(--sheet-bg); }
-:root[data-theme="dark"] .sheet-bar { border-bottom: 1px solid var(--wk-line); }
-.sheet-bar-title { color: var(--wk-ink); }
+.sheet-bar { background: var(--sheet-bg); border-bottom: 1px solid var(--hair); }
+:root[data-theme="dark"] .sheet-bar { border-bottom: 1px solid var(--hair); }
+.sheet-bar-title { color: var(--text); }
 .sheet .sh-toc { background: var(--sheet-bg); }
-.sheet .sh-head { border-bottom-color: var(--wk-line); }
+.sheet .sh-head { border-bottom-color: var(--hair); }
 
-/* ---------- Tiêu đề bài (H1) + dòng giới thiệu ---------- */
+/* Focus bàn phím cho vùng đọc (chống P3) */
+.sheet-scroll:focus-visible { outline: 2px solid var(--ac); outline-offset: -2px; }
+
+/* ---------- Tiêu đề bài (H1) + Dòng meta + Phụ đề ---------- */
 .sheet .sh-title,
 .sheet .sh-wiki-main-title {
-  font-family: var(--f-serif); font-weight: 500; font-size: 25px; line-height: 1.32;
-  letter-spacing: 0; color: var(--wk-ink);
-  padding-bottom: 8px; margin: 0 0 8px; border-bottom: 1px solid var(--wk-frame);
+  font-family: inherit; font-size: 24px; font-weight: 700; line-height: 1.35;
+  letter-spacing: -0.015em; color: var(--text);
+  padding-bottom: 8px; margin: 0 0 8px; border-bottom: 1px solid var(--hair-strong);
 }
 .sheet .sh-title { font-size: 23px; }
+
+/* Dòng meta đặt ngay dưới H1 */
 .sheet .sh-meta {
-  font-size: 13px; font-weight: 500; color: var(--wk-mute); letter-spacing: 0; margin: 0 0 2px;
+  font-size: 12.5px; font-weight: 600; color: var(--gold-text); letter-spacing: 0;
+  margin: 0 0 4px; text-transform: none; background: none; padding: 0;
 }
-.sheet .sh-sub { color: var(--wk-mute); margin-top: 2px; }
 .sheet .sh-wiki-lead-badge {
-  display: block; background: none; padding: 0; border-radius: 0; margin: 0 0 2px;
-  font-size: 13px; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--wk-mute);
+  display: block; background: none; padding: 0; border-radius: 0; margin: 0 0 4px;
+  font-size: 12.5px; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--gold-text);
 }
 .sheet .sh-wiki-lead-badge svg { display: none; }
-.sheet .sh-wiki-sub-title { color: var(--wk-mute); font-size: 13.5px; margin-bottom: 16px; }
+.sheet .sh-sub,
+.sheet .sh-wiki-sub-title { font-size: 14px; color: var(--text-3); margin-bottom: 14px; line-height: 1.45; }
 
 /* ---------- Infobox chuẩn Wikipedia ---------- */
 .sheet .sh-wiki-infobox {
-  background: var(--wk-panel); border: 1px solid var(--wk-frame); border-radius: 6px;
-  padding: 0; margin: 14px 0 22px; box-shadow: none; overflow: hidden;
+  background: var(--card-alt); border: 1px solid var(--hair-strong); border-radius: 14px;
+  padding: 0; margin: 14px 0 22px; box-shadow: var(--shadow-1); overflow: hidden;
+}
+:root[data-theme="dark"] .sheet .sh-wiki-infobox {
+  background: var(--card);
 }
 .sheet .sh-wiki-infobox-hdr {
   display: block; text-align: center; padding: 10px 14px; margin: 0;
-  background: var(--ib-band, var(--ac-soft)); border-bottom: 1px solid var(--wk-frame);
+  background: var(--ib-band, var(--ac-soft)); border-bottom: 1px solid var(--hair-strong);
 }
 .sheet .sh-wiki-infobox-hdr .av,
 .sheet .sh-wiki-infobox-hdr .bi { display: none; }
 .sheet .sh-wiki-infobox-name {
-  font-family: var(--f-serif); font-size: 17px; font-weight: 600; line-height: 1.35; color: var(--wk-ink);
+  font-family: inherit; font-size: 16.5px; font-weight: 700; line-height: 1.35; color: var(--text);
 }
-.sheet .sh-wiki-infobox-tag { font-size: 12.5px; font-weight: 400; color: var(--wk-ink-2); margin-top: 2px; }
-.sheet .sh-wiki-infobox-table { padding: 2px 14px 6px; }
-.sheet .sh-wiki-infobox-row { border-bottom: 1px solid var(--wk-line); padding: 7px 0; }
+.sheet .sh-wiki-infobox-tag { font-size: 12.5px; font-weight: 500; color: var(--text-2); margin-top: 2px; }
+.sheet .sh-wiki-infobox-table { padding: 4px 14px 8px; }
+.sheet .sh-wiki-infobox-row { border-bottom: 1px solid var(--hair); padding: 7px 0; }
 .sheet .sh-wiki-infobox-row:last-child { border-bottom: none; }
-.sheet .sh-wiki-infobox-lbl { color: var(--wk-ink); font-weight: 600; font-size: 13px; }
-.sheet .sh-wiki-infobox-val { color: var(--wk-ink-2); font-weight: 400; }
-.sheet .sh-wiki-infobox-val b,
-.sheet .sh-wiki-result { color: var(--wk-ink); font-weight: 600; }
+.sheet .sh-wiki-infobox-lbl { color: var(--text-3); font-weight: 600; font-size: 12.5px; flex: 0 0 110px; width: 110px; }
+.sheet .sh-wiki-infobox-val { color: var(--text); font-weight: 500; font-size: 14px; }
+.sheet .sh-wiki-result { color: var(--text); font-weight: 600; }
 .sheet .sh-wiki-infobox-val .sh-pill {
-  background: transparent; color: var(--wk-ink-2); border: 1px solid var(--wk-frame); box-shadow: none;
+  background: transparent; color: var(--text-2); border: 1px solid var(--hair-strong);
+  box-shadow: none; font-size: 12.5px; border-radius: 6px; padding: 2px 8px;
 }
-/* Dải màu nhận diện — đồng bộ với thẻ danh sách */
+
+/* Dải màu nhận diện Infobox: cùng màu với avatar / sọc của thẻ danh sách */
 .sh-wiki-infobox.ib-period,
-.sh-wiki-infobox.ib-person { --ib-band: var(--ac-soft); }
-.sh-wiki-infobox.ib-person.k-gold { --ib-band: var(--gold-soft); }
-.sh-wiki-infobox.ib-person.k-green { --ib-band: var(--green-soft); }
+.sh-wiki-infobox.ib-person            { --ib-band: var(--ac-soft); }
+.sh-wiki-infobox.ib-person.k-gold     { --ib-band: var(--gold-soft); }
+.sh-wiki-infobox.ib-person.k-green    { --ib-band: var(--green-soft); }
 .sh-wiki-infobox.ib-person.k-neutral,
-.sh-wiki-infobox.ib-battle { --ib-band: var(--neutral-soft); }
+.sh-wiki-infobox.ib-battle            { --ib-band: var(--neutral-soft); }
 
-/* ---------- Mục lục nhảy nhanh & tab ---------- */
-.sheet .sh-wiki-jump-bar { background: var(--sheet-glass); border-bottom: 1px solid var(--wk-line); }
-.sheet .sh-wiki-jump-pill { color: var(--wk-mute); }
-.sheet .sh-wiki-jump-pill:hover { color: var(--wk-ink); background: var(--wk-line); }
-.sheet .sh-wiki-jump-pill.active {
-  color: var(--wk-ink); background: transparent; border-radius: 0; box-shadow: inset 0 -2px 0 var(--ac);
+/* ---------- Mục lục nhảy nhanh & Tab bar ---------- */
+.sheet .sh-wiki-jump-bar {
+  background: var(--sheet-glass); border-bottom: 1px solid var(--hair);
+  position: sticky; top: 0; z-index: 10;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
-.sheet .sh-toc-item { color: var(--wk-mute); }
-.sheet .sh-toc-item.active { color: var(--wk-ink); }
+.sheet .sh-wiki-jump-pill { color: var(--text-3); font-size: 12px; font-weight: 500; }
+.sheet .sh-wiki-jump-pill:hover { color: var(--text); background: var(--neutral-soft); }
+.sheet .sh-wiki-jump-pill.active {
+  color: var(--text); font-weight: 600; background: transparent; border-radius: 0;
+  box-shadow: inset 0 -2px 0 var(--ac);
+}
+.sheet .sh-toc-item { color: var(--text-3); }
+.sheet .sh-toc-item.active { color: var(--text); font-weight: 600; }
 
-/* ---------- Đề mục H2 / H3 ---------- */
+/* ---------- Đề mục H2 & Subheading ---------- */
 .sheet .sh-wiki-h2 {
-  font-family: var(--f-serif); font-size: 19.5px; font-weight: 500; line-height: 1.35; color: var(--wk-ink);
-  border-bottom: 1px solid var(--wk-frame); margin: 30px 0 12px; padding-bottom: 6px;
+  font-family: inherit; font-size: 18px; font-weight: var(--w-head, 600);
+  letter-spacing: var(--ls-head, -0.01em); line-height: 1.35; color: var(--text);
+  border-bottom: 1px solid var(--hair-strong); margin: 26px 0 12px; padding-bottom: 6px;
 }
 .sheet .sh-wiki-h2:first-of-type { margin-top: 8px; }
 .sheet .sh-wiki-h2-num { display: none; }
-.sheet .sh-wiki-h2-text { color: inherit; letter-spacing: 0; }
+.sheet .sh-wiki-h2-text { color: inherit; letter-spacing: inherit; }
 .sheet .sh-subheading {
-  font-size: 15.5px; font-weight: 600; color: var(--wk-ink);
-  text-transform: none; letter-spacing: 0; margin: 22px 0 8px; line-height: 1.4;
+  font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--gold-text); margin: 22px 0 8px; line-height: 1.4;
 }
 .sheet .sh-subheading:first-child { margin-top: 0; }
 
-/* ---------- Thân bài ---------- */
+/* ---------- Thân bài & Typography tiếng Việt ---------- */
 .sheet .sh-narrative-p,
 .sheet .sh-summary-p,
-.sheet .sh-contribution-item { color: var(--wk-ink-2); }
+.sheet .sh-contribution-item { color: var(--text); font-size: var(--s-read, 16px); line-height: 1.7; }
 .sheet .sh-narrative-p strong,
-.sheet .sh-contribution-item b { color: var(--wk-ink); }
-.sheet .sh-narrative-p em { color: var(--wk-ink-2); }
-.sheet p, .sheet li, .sheet .sh-legacy-txt, .sheet .sh-timeline-content { text-wrap: pretty; hyphens: manual; }
+.sheet .sh-contribution-item b { color: var(--text); font-weight: 600; }
+.sheet .sh-narrative-p em { color: var(--text-2); }
+.sheet p, .sheet li, .sheet .sh-legacy-txt, .sheet .sh-timeline-content {
+  text-align: left; text-wrap: wrap; hyphens: manual;
+}
 
-/* Liên kết: đỏ son là màu duy nhất cho thứ bấm được */
+/* ---------- Liên kết (Đỏ son cho thứ bấm được) ---------- */
 .sheet .sh-inline-link {
-  color: var(--ac); font-size: inherit; font-weight: 500; text-decoration-color: var(--wk-link-line);
+  color: var(--ac); font-size: inherit; font-weight: 500;
+  text-decoration: underline; text-decoration-color: var(--ac-ring, rgba(155, 44, 44, 0.38));
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
 }
 .sheet .sh-inline-link:hover,
-.sheet .sh-inline-link:active { color: var(--ac); text-decoration-color: currentColor; }
+.sheet .sh-inline-link:active {
+  color: var(--ac); text-decoration-thickness: 2px; text-decoration-color: currentColor;
+}
 .sheet .sh-cross-link-btn {
   display: inline; background: none; border: none; border-radius: 0; padding: 0; margin: 0;
   color: var(--ac); font-size: inherit; font-weight: 500; vertical-align: baseline;
-  text-decoration: underline; text-decoration-color: var(--wk-link-line);
+  text-decoration: underline; text-decoration-color: var(--ac-ring, rgba(155, 44, 44, 0.38));
   text-decoration-thickness: 1px; text-underline-offset: 3px;
 }
 .sheet .sh-cross-link-btn svg { vertical-align: -1px; opacity: .7; }
-.sheet .sh-cross-link-btn:hover { background: none; color: var(--ac); border: none; transform: none; box-shadow: none; text-decoration-color: currentColor; }
+.sheet .sh-cross-link-btn:hover {
+  background: none; color: var(--ac); border: none; transform: none; box-shadow: none;
+  text-decoration-thickness: 2px; text-decoration-color: currentColor;
+}
 
 /* ---------- Nhãn bằng chứng: [chính sử] kiểu chú thích Wikipedia ---------- */
 .sheet .ev-badge[class] {
-  background: none; color: var(--wk-mute); padding: 0; border-radius: 0; margin: 0 1px;
-  font-size: 11.5px; font-weight: 500; letter-spacing: 0; line-height: 1; vertical-align: super;
+  background: none; color: var(--text-3); padding: 0; border-radius: 0; margin: 0 1px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0; line-height: 1; vertical-align: super;
 }
 .sheet .ev-badge::before { content: '['; }
-.sheet .ev-badge::after { content: ']'; }
+.sheet .ev-badge::after  { content: ']'; }
 .sheet .ev-badge.giathuyet, .sheet .ev-badge.truyenngon, .sheet .ev-badge.truyenthuyet,
-.sheet .ev-badge.tranhluan, .sheet .ev-badge.tieuthuyet { font-style: italic; }
-/* Nhãn đứng đầu mục liệt kê & trong trích dẫn: nằm trên dòng chữ, đậm hơn */
+.sheet .ev-badge.tranhluan, .sheet .ev-badge.tieuthuyet { font-style: italic; font-weight: 500; }
 .sheet li > .ev-badge[class]:first-child,
 .sheet .quote .ev-badge[class] {
   vertical-align: baseline; font-size: 12.5px; font-weight: 600; margin: 0 4px 0 0;
 }
 
-/* ---------- Trích dẫn ---------- */
-.sheet .quote {
-  background: none; border-left: 2px solid var(--wk-frame); border-radius: 0;
-  padding: 2px 0 2px 16px; margin: 18px 0 22px 4px;
-}
-.sheet .quote p { font-weight: 400; font-size: 16px; color: var(--wk-ink-2); }
-.sheet .quote cite { color: var(--wk-mute); font-weight: 500; }
+/* ---------- Trích dẫn: GIỮ NGUYÊN CHUẨN GỐC THƯƠNG HIỆU ---------- */
+/* Không override .quote: giữ nền var(--quote-bg), sọc trái var(--gold), cite var(--gold-text) */
 
 /* ---------- Danh sách ---------- */
-.sheet .sh-bullet-list li, .sheet .sh-key-list li { color: var(--wk-ink-2); }
+.sheet .sh-bullet-list li, .sheet .sh-key-list li { color: var(--text); font-size: var(--s-read, 16px); line-height: 1.7; }
 .sheet .sh-bullet-list li::before, .sheet .sh-key-list li::before {
-  width: 5px; height: 5px; top: 12px; left: 4px; background: var(--wk-mute);
+  width: 5px; height: 5px; top: 12px; left: 4px; background: var(--gold);
 }
 
 /* ---------- Niên biểu (dạng tab) ---------- */
-.sheet .sh-timeline::before { width: 1px; left: 6px; background: var(--wk-frame); }
+.sheet .sh-timeline::before { width: 1px; left: 6px; background: var(--hair-strong); }
 .sheet .sh-timeline-row { border-bottom: none; padding: 6px 0 12px 14px; }
 .sheet .sh-timeline-row::before {
   width: 9px; height: 9px; left: -18px; top: 13px; box-sizing: border-box;
-  background: var(--sheet-bg); border: 1.5px solid var(--wk-mute); box-shadow: none;
+  background: var(--sheet-bg); border: 1.5px solid var(--gold); box-shadow: none;
 }
 .sheet .sh-timeline-time {
   background: none; padding: 0; border-radius: 0; margin-bottom: 2px;
-  color: var(--wk-ink); font-size: 14.5px; font-weight: 700; letter-spacing: 0;
+  color: var(--gold-text); font-size: 14px; font-weight: 700; letter-spacing: 0;
 }
-.sheet .sh-timeline-content { color: var(--wk-ink-2); }
+.sheet .sh-timeline-content { color: var(--text); }
 
 /* ---------- Niên biểu (dạng bài Wiki) ---------- */
 .sheet .sh-wiki-timeline-card { background: none; border: none; box-shadow: none; padding: 0; margin: 8px 0 18px; border-radius: 0; }
-.sheet .sh-wiki-timeline-title { color: var(--wk-mute); font-size: 12.5px; font-weight: 600; text-transform: none; letter-spacing: 0; }
-.sheet .sh-wiki-timeline-strip { border-bottom: 1px solid var(--wk-line); }
-.sheet .sh-wiki-m-chip { background: none; padding: 0; color: var(--wk-ink-2); font-weight: 600; }
-.sheet .sh-wiki-m-arr { color: var(--wk-mute); }
-.sheet .sh-wiki-timeline-list::before { width: 1px; background: var(--wk-frame); }
-.sheet .sh-wiki-timeline-item { color: var(--wk-ink-2); border-bottom: none; font-size: 15px; line-height: 1.65; padding-bottom: 10px; }
+.sheet .sh-wiki-timeline-title { color: var(--gold-text); font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; }
+.sheet .sh-wiki-timeline-strip { border-bottom: 1px solid var(--hair); }
+.sheet .sh-wiki-m-chip { background: none; padding: 0; color: var(--text-2); font-weight: 600; }
+.sheet .sh-wiki-m-arr { color: var(--text-4); }
+.sheet .sh-wiki-timeline-list::before { width: 1px; background: var(--hair-strong); }
+.sheet .sh-wiki-timeline-item { color: var(--text); border-bottom: none; font-size: 15px; line-height: 1.65; padding-bottom: 10px; }
 .sheet .sh-wiki-timeline-item::before {
   width: 8px; height: 8px; left: -14.5px; top: 9px; box-sizing: border-box;
-  background: var(--sheet-bg); border: 1.5px solid var(--wk-mute); box-shadow: none;
+  background: var(--sheet-bg); border: 1.5px solid var(--gold); box-shadow: none;
 }
-.sheet .sh-wiki-timeline-item .sh-t-time { color: var(--wk-ink); font-size: 14px; }
+.sheet .sh-wiki-timeline-item .sh-t-time { color: var(--gold-text); font-size: 14px; font-weight: 600; }
 
 /* ---------- Khảo biện: đề mục con + đoạn văn phẳng (bỏ hộp lồng hộp) ---------- */
 .sheet .sh-essay-flow { gap: 16px; }
 .sheet .sh-essay-card { background: none; border: none; border-radius: 0; padding: 0; }
-.sheet .sh-essay-topic { font-size: 15.5px; font-weight: 600; color: var(--wk-ink); letter-spacing: 0; margin-bottom: 4px; line-height: 1.45; }
-.sheet .sh-essay-card .sh-narrative-p { font-size: 16px; line-height: 1.72; color: var(--wk-ink-2); }
+.sheet .sh-essay-topic { font-size: 15.5px; font-weight: var(--w-head, 600); color: var(--text); letter-spacing: 0; margin-bottom: 4px; line-height: 1.45; }
+.sheet .sh-essay-card .sh-narrative-p { font-size: var(--s-read, 16px); line-height: 1.7; color: var(--text); }
 
-/* ---------- Di sản: danh sách chấm tròn ---------- */
+/* ---------- Di sản: danh sách sao vàng đồng ---------- */
 .sheet .sh-legacy-flow { gap: 8px; }
 .sheet .sh-legacy-card { background: none; border: none; border-radius: 0; padding: 0; gap: 12px; font-size: 16px; line-height: 1.68; }
-.sheet .sh-legacy-icon { margin-top: 0; width: 9px; height: 27px; }
-.sheet .sh-legacy-icon svg { display: none; }
-.sheet .sh-legacy-icon::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--wk-mute); }
-.sheet .sh-legacy-txt { color: var(--wk-ink-2); }
+.sheet .sh-legacy-icon { margin-top: 0; width: 14px; height: 27px; color: var(--gold); display: flex; align-items: center; justify-content: center; }
+.sheet .sh-legacy-icon svg { width: 14px; height: 14px; fill: currentColor; }
+.sheet .sh-legacy-txt { color: var(--text); }
 
 /* ---------- Bảng thông số (dạng tab) = infobox thu gọn ---------- */
-.sheet .sh-rows { background: var(--wk-panel); border: 1px solid var(--wk-frame); border-radius: 6px; }
-.sheet .sh-row { border-bottom-color: var(--wk-line); }
-.sheet .sh-row-label { color: var(--wk-ink); font-weight: 600; }
-.sheet .sh-row-val { color: var(--wk-ink-2); font-weight: 400; }
+.sheet .sh-rows { background: var(--card-alt); border: 1px solid var(--hair-strong); border-radius: 14px; padding: 4px 14px; }
+:root[data-theme="dark"] .sheet .sh-rows { background: var(--card); }
+.sheet .sh-row { border-bottom: 1px solid var(--hair); }
+.sheet .sh-row:last-child { border-bottom: none; }
+.sheet .sh-row-label { color: var(--text-3); font-weight: 600; font-size: 12.5px; }
+.sheet .sh-row-val { color: var(--text); font-weight: 500; font-size: 14px; }
 
 /* ---------- Nút & pill trung tính ---------- */
-.sheet .sh-pill { background: transparent; box-shadow: 0 0 0 1px var(--wk-frame); color: var(--wk-ink); }
-.sheet .sh-pill-expand { background: var(--wk-line); box-shadow: none; color: var(--wk-ink-2); }
+.sheet .sh-pill { background: transparent; box-shadow: 0 0 0 1px var(--hair-strong); color: var(--text); }
+.sheet .sh-pill-expand { background: var(--neutral-soft); box-shadow: none; color: var(--text-2); }
 .sheet .sh-next-tab-btn,
 .sheet .sh-timeline-jump-btn {
-  background: var(--wk-panel); border: 1px solid var(--wk-frame); color: var(--wk-ink-2);
+  background: var(--card-alt); border: 1px solid var(--hair-strong); color: var(--text);
+}
+:root[data-theme="dark"] .sheet .sh-next-tab-btn,
+:root[data-theme="dark"] .sheet .sh-timeline-jump-btn {
+  background: var(--card);
 }
 .sheet .sh-next-tab-btn:hover, .sheet .sh-next-tab-btn:active,
 .sheet .sh-timeline-jump-btn:active {
-  background: var(--wk-line); border-color: var(--wk-frame); color: var(--wk-ink);
+  background: var(--neutral-soft); border-color: var(--hair-strong); color: var(--text);
 }
 .sheet .sh-timeline-jump-btn svg { stroke: currentColor; }
 
-/* ---------- Ảnh, bản đồ, chứng tích: bỏ bóng, viền mảnh ---------- */
+/* ---------- Ảnh, bản đồ, chứng tích: bỏ bóng nổi, bo góc 10px ---------- */
 .sheet .sh-wiki-thumb,
-.sheet .sh-evidence-showcase { box-shadow: none; border-radius: 6px; }
+.sheet .sh-evidence-showcase { box-shadow: none; border-radius: 10px; }
 .sheet .sh-evidence-card,
-.sheet .sh-evidence-single-card { box-shadow: none; border-radius: 6px; }
+.sheet .sh-evidence-single-card { box-shadow: none; border-radius: 10px; }
 .sheet .sh-evidence-card:hover,
 .sheet .sh-evidence-single-card:hover { box-shadow: none; transform: none; }
-.sheet .sh-evidence-showcase-title svg { color: var(--wk-mute); }
+.sheet .sh-evidence-showcase-title svg { color: var(--gold-text); }
 .sheet .sh-evidence-card-name { font-weight: 600; }
-
 
 /* =====================================================================
    TACTICAL VECTOR MAP — SƠ ĐỒ TÁC CHIẾN & KHÔNG GIAN ĐỊA LÝ LỊCH SỬ
@@ -2231,35 +2285,36 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 }
 
 .sh-cross-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(212, 163, 75, 0.12);
-  color: #9a6312;
-  border: 1px solid rgba(212, 163, 75, 0.4);
-  border-radius: 999px;
-  padding: 3px 10px;
-  font-size: 12px;
-  font-weight: 600;
+  display: inline;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  color: var(--ac);
+  font-size: inherit;
+  font-weight: 500;
+  vertical-align: baseline;
+  text-decoration: underline;
+  text-decoration-color: var(--ac-ring, rgba(155, 44, 44, 0.38));
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
   cursor: pointer;
-  margin: 6px 2px 2px 2px;
-  transition: all 0.18s ease;
-  vertical-align: middle;
-  text-decoration: none;
+  font-family: inherit;
+  transition: color .15s ease, text-decoration-color .15s ease;
 }
-
-:root[data-theme="dark"] .sh-cross-link-btn {
-  background: rgba(212, 163, 75, 0.18);
-  color: #f3cf7a;
-  border-color: rgba(212, 163, 75, 0.45);
+.sh-cross-link-btn:hover,
+.sh-cross-link-btn:active {
+  color: var(--ac);
+  text-decoration-thickness: 2px;
+  text-decoration-color: currentColor;
+  background: none;
+  transform: none;
+  box-shadow: none;
 }
-
-.sh-cross-link-btn:hover {
-  background: #c99738;
-  color: #fff;
-  border-color: #c99738;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(201, 151, 56, 0.28);
+.sh-cross-link-btn svg {
+  vertical-align: -1px;
+  opacity: .7;
 }
 
 /* =========================================================
@@ -2561,6 +2616,215 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
   background: var(--gold-soft, rgba(176, 141, 87, 0.16));
   border-color: var(--gold-light, #8A6A3A);
 }
+
+/* =====================================================================
+   READER B2 — KHAY CHI TIẾT (Wiki × Apple, đã duyệt 24/10/2026)
+   Bật bằng data-reader="b2" trên #sheet. Gỡ thuộc tính = quay về giao diện cũ.
+   Thang chữ: 400 thân bài · 500 đề mục & nhấn · 600 chỉ cho H1.
+   Selector #sheet[data-reader] thắng mọi rule .sheet cũ → không cần !important.
+   ===================================================================== */
+
+/* ---------- 0. Token ---------- */
+:root {
+  --rd-ease: cubic-bezier(.2, .8, .2, 1);
+  --rd-ease-sheet: cubic-bezier(.32, .72, 0, 1);
+  --rd-fast: .15s;
+  --rd-base: .22s;
+}
+
+/* ---------- 1. Khung khay & chuyển động ---------- */
+#sheet[data-reader] { transition: transform .26s var(--rd-ease-sheet); }                    /* đóng */
+#sheet[data-reader].show { transition-duration: .36s; }                                     /* mở */
+#sheet[data-reader].dragging { transition: none; }
+#sheet[data-reader] .grabber { padding: 6px 0 2px; }
+#sheet[data-reader] .grabber span { width: 36px; }
+#sheet[data-reader] .sheet-bar {
+  min-height: 48px; padding: 0 12px 4px 20px;
+  border-bottom: 1px solid transparent; transition: border-color var(--rd-fast) linear;
+}
+#sheet[data-reader].is-scrolled:not(.is-stuck) .sheet-bar { border-bottom-color: var(--hair); }
+#sheet[data-reader] .sheet-bar-title { font-size: 16px; font-weight: 500; letter-spacing: -.01em; }
+#sheet[data-reader] .sheet-bar-btn { width: 36px; height: 36px; -webkit-tap-highlight-color: transparent; }
+#sheet[data-reader] .sheet-bar-btn::after { inset: -4px; }                                  /* vùng chạm 44px */
+#sheet[data-reader] .sheet-scroll { padding: 0 20px calc(56px + var(--safe-b)); }
+#sheet[data-reader] .sh-wiki-wrap { padding-top: 0; animation: rdIn var(--rd-base) var(--rd-ease) both; }
+@keyframes rdIn { from { opacity: 0; transform: translate3d(0, 6px, 0); } to { opacity: 1; transform: none; } }
+
+/* ---------- 2. Đầu bài ---------- */
+#sheet[data-reader] .sh-wiki-main-title { font-size: 28px; font-weight: 600; line-height: 1.22; letter-spacing: -.022em; margin: 4px 0 6px; padding: 0; border: 0; }
+#sheet[data-reader] .sh-wiki-lead-badge { font-size: 13px; font-weight: 400; line-height: 1.45; color: var(--text-3); text-transform: none; letter-spacing: 0; margin: 0 0 2px; }
+#sheet[data-reader] .sh-wiki-sub-title { font-size: 15px; font-weight: 400; line-height: 1.5; color: var(--text-2); margin: 0 0 20px; }
+
+/* ---------- 3. Infobox: thẻ trắng, nhãn trên – giá trị dưới, gọn 5 dòng ---------- */
+#sheet[data-reader] .sh-wiki-infobox { background: var(--card); border: 1px solid var(--hair); border-radius: 12px; padding: 0; margin: 0 0 20px; box-shadow: none; }
+#sheet[data-reader] .sh-wiki-infobox-hdr { display: none; }
+#sheet[data-reader] .sh-wiki-infobox-table { padding: 0 16px; }
+#sheet[data-reader] .sh-wiki-infobox-row { display: block; padding: 10px 0 11px; border-bottom: 1px solid var(--hair); }
+#sheet[data-reader] .sh-wiki-infobox-row:last-child { border-bottom: 0; }
+#sheet[data-reader] .sh-wiki-infobox-lbl { display: block; width: auto; font-size: 12.5px; font-weight: 400; line-height: 1.4; color: var(--text-3); margin-bottom: 2px; }
+#sheet[data-reader] .sh-wiki-infobox-val { font-size: 15px; font-weight: 400; line-height: 1.5; color: var(--text); }
+#sheet[data-reader] .sh-wiki-infobox-val b,
+#sheet[data-reader] .sh-wiki-result { font-weight: 400; }
+#sheet[data-reader] .sh-wiki-infobox-val .sh-pill { min-height: 32px; margin: 4px 6px 0 0; padding: 0 12px; border: 0; border-radius: 16px; background: var(--neutral-soft); box-shadow: none; color: var(--text); font-size: 14px; font-weight: 400; }
+#sheet[data-reader] .rd-collapsed .sh-wiki-infobox-row:nth-child(n+6) { display: none; }
+#sheet[data-reader] .rd-collapsed .sh-wiki-infobox-row:nth-child(5) { border-bottom: 0; }
+#sheet[data-reader] .rd-more {
+  display: flex; width: 100%; min-height: 44px; align-items: center; justify-content: center;
+  border: 0; border-top: 1px solid var(--hair); background: none; padding: 0;
+  color: var(--ac); font: inherit; font-size: 14px; font-weight: 400; -webkit-tap-highlight-color: transparent;
+}
+#sheet[data-reader] .rd-more:active { background: var(--neutral-soft); }
+
+/* ---------- 4. Thanh mục lục: nền đặc, cao 44px, vạch đỏ son ---------- */
+#sheet[data-reader] .sh-wiki-jump-bar {
+  -webkit-mask-image: none; mask-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+  background: var(--sheet-bg); border-bottom: 1px solid var(--hair);
+  height: 44px; padding: 0 12px; margin: 0 -20px 4px; gap: 2px; align-items: stretch; scroll-padding-inline: 12px;
+}
+#sheet[data-reader] .sh-wiki-jump-pill {
+  position: relative; height: 100%; padding: 0 8px; border-radius: 0; background: none; box-shadow: none;
+  font-size: 14px; font-weight: 400; color: var(--text-3);
+  -webkit-tap-highlight-color: transparent; transition: color var(--rd-fast) linear;
+}
+#sheet[data-reader] .sh-wiki-jump-pill:hover { background: none; color: var(--text); }
+#sheet[data-reader] .sh-wiki-jump-pill.active { color: var(--text); font-weight: 500; background: none; box-shadow: none; }
+#sheet[data-reader] .sh-wiki-jump-pill.active::after {
+  content: ''; position: absolute; left: 8px; right: 8px; bottom: 0; height: 2px; border-radius: 2px; background: var(--ac);
+}
+
+/* ---------- 5. Đề mục (sửa lỗi :first-of-type làm mọi H2 chỉ cách 8px) ---------- */
+#sheet[data-reader] .sh-wiki-h2 { font-size: 20px; font-weight: 500; line-height: 1.3; letter-spacing: -.012em; margin: 36px 0 10px; padding: 0; border: 0; scroll-margin-top: 56px; }
+#sheet[data-reader] .sh-wiki-sec:first-of-type .sh-wiki-h2 { margin-top: 20px; }
+#sheet[data-reader] .sh-subheading { font-size: 15px; font-weight: 500; line-height: 1.4; letter-spacing: 0; text-transform: none; color: var(--text-2); margin: 24px 0 8px; }
+
+/* ---------- 6. Thân bài ---------- */
+#sheet[data-reader] .sh-narrative-p,
+#sheet[data-reader] .sh-summary-p,
+#sheet[data-reader] .sh-contribution-item { font-size: 16px; font-weight: 400; line-height: 1.7; letter-spacing: 0; margin: 0 0 14px; }
+#sheet[data-reader] .sh-narrative-p strong,
+#sheet[data-reader] .sh-narrative-p b,
+#sheet[data-reader] .sh-contribution-item b { font-weight: 500; }
+#sheet[data-reader] .sh-narrative-p em { font-style: italic; color: inherit; }
+#sheet[data-reader] .sh-essay-flow { gap: 20px; }
+#sheet[data-reader] .sh-essay-topic { font-size: 16px; font-weight: 500; line-height: 1.45; letter-spacing: 0; color: var(--text); margin: 0 0 4px; }
+#sheet[data-reader] .sh-essay-card .sh-narrative-p { margin: 0; }
+
+/* Liên kết: inline thật (không gãy cụm), gạch chân mảnh, vùng chạm nới bằng padding dọc */
+#sheet[data-reader] .sh-inline-link,
+#sheet[data-reader] .sh-cross-link-btn {
+  display: inline; padding: 8px 0; margin: 0; font: inherit; font-weight: inherit; color: var(--ac);
+  text-decoration: underline; text-decoration-color: var(--ac-ring); text-decoration-thickness: 1px; text-underline-offset: 3px;
+  -webkit-tap-highlight-color: transparent; border-radius: 3px;
+  transition: background-color var(--rd-fast) linear, text-decoration-color var(--rd-fast) linear;
+}
+#sheet[data-reader] .sh-wiki-infobox-val .sh-inline-link { padding: 0; }
+#sheet[data-reader] .sh-inline-link:active,
+#sheet[data-reader] .sh-cross-link-btn:active { background: var(--ac-soft); text-decoration-color: currentColor; }
+
+/* Trích dẫn */
+#sheet[data-reader] .quote { margin: 22px 0; padding: 2px 0 2px 16px; background: none; border-radius: 0; border-left: 2px solid var(--gold); }
+#sheet[data-reader] .quote p { font-size: 17px; font-weight: 400; font-style: normal; line-height: 1.55; margin: 0 0 8px; }
+#sheet[data-reader] .quote cite { font-size: 13px; font-weight: 400; color: var(--text-3); }
+
+/* Nhãn bằng chứng [chính sử] */
+#sheet[data-reader] .ev-badge[class] { font-weight: 400; font-style: normal; color: var(--text-3); }
+
+/* Danh sách: chấm trung tính */
+#sheet[data-reader] .sh-bullet-list,
+#sheet[data-reader] .sh-key-list { gap: 10px; }
+#sheet[data-reader] .sh-bullet-list li,
+#sheet[data-reader] .sh-key-list li { font-size: 16px; line-height: 1.7; padding-left: 18px; }
+#sheet[data-reader] .sh-bullet-list li::before,
+#sheet[data-reader] .sh-key-list li::before { left: 3px; top: .78em; width: 5px; height: 5px; background: var(--text-4); }
+#sheet[data-reader] .sh-legacy-flow { gap: 10px; }
+#sheet[data-reader] .sh-legacy-card { display: block; position: relative; padding-left: 18px; font-size: 16px; line-height: 1.7; }
+#sheet[data-reader] .sh-legacy-card::before { content: ''; position: absolute; left: 3px; top: .78em; width: 5px; height: 5px; border-radius: 50%; background: var(--text-4); }
+#sheet[data-reader] .sh-legacy-icon { display: none; }
+
+/* Tên di tích dài đầu mục chứng tích (JS gắn .rd-term) → dòng đề riêng, bỏ ngoặc [ ] */
+#sheet[data-reader] li > .ev-badge.rd-term[class] {
+  display: block; margin: 0 0 1px; vertical-align: baseline;
+  font-size: 15px; font-weight: 500; line-height: 1.5; color: var(--text);
+}
+#sheet[data-reader] li > .ev-badge.rd-term::before,
+#sheet[data-reader] li > .ev-badge.rd-term::after { content: none; }
+#sheet[data-reader] .sh-ev-inline-btn {
+  display: inline-flex; align-items: center; gap: 5px; padding: 8px 0; margin: -8px 0 -8px 4px;
+  border: 0; border-radius: 0; background: none; color: var(--ac);
+  font: inherit; font-size: 14px; font-weight: 400; vertical-align: baseline; white-space: nowrap;
+}
+#sheet[data-reader] .sh-ev-inline-btn:hover { background: none; color: var(--ac); }
+
+/* Niên biểu: năm trên – nội dung dưới */
+#sheet[data-reader] .sh-wiki-timeline-card { background: none; border: 0; box-shadow: none; padding: 0; margin: 0 0 18px; }
+#sheet[data-reader] .sh-wiki-timeline-title,
+#sheet[data-reader] .sh-wiki-timeline-strip { display: none; }
+#sheet[data-reader] .sh-wiki-timeline-list { padding-left: 0; }
+#sheet[data-reader] .sh-wiki-timeline-list::before,
+#sheet[data-reader] .sh-wiki-timeline-item::before { display: none; }
+#sheet[data-reader] .sh-wiki-timeline-item { padding: 12px 0; border-bottom: 1px solid var(--hair); font-size: 15px; line-height: 1.65; }
+#sheet[data-reader] .sh-wiki-timeline-item:first-child { padding-top: 2px; }
+#sheet[data-reader] .sh-wiki-timeline-item:last-child { border-bottom: 0; }
+#sheet[data-reader] .sh-wiki-timeline-item .sh-t-time { display: block; margin: 0 0 2px; font-size: 13px; font-weight: 500; color: var(--text-3); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+
+/* ---------- 7. HÌNH ẢNH ---------- */
+/* 7a. 1 ảnh / lược đồ: nằm trong lề chữ, hiện TRỌN ảnh, không phủ nút lên ảnh */
+#sheet[data-reader] .sh-wiki-thumb { margin: 20px 0 24px; padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; }
+#sheet[data-reader] .sh-wiki-thumb-inner { border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; background: var(--card-alt); cursor: zoom-in; -webkit-tap-highlight-color: transparent; }
+#sheet[data-reader] .sh-wiki-thumb img,
+#sheet[data-reader] .sh-wiki-thumb-inner img { max-height: 420px; object-fit: contain; transition: none; }
+#sheet[data-reader] .sh-wiki-thumb-inner:hover img,
+#sheet[data-reader] .sh-wiki-thumb-inner:hover .sh-wiki-thumb-svg { transform: none; }
+#sheet[data-reader] .sh-wiki-thumb-badge { display: none; }
+#sheet[data-reader] .sh-wiki-thumb-caption { align-items: flex-start; gap: 12px; padding: 8px 0 0; font-size: 13px; line-height: 1.5; color: var(--text-3); }
+#sheet[data-reader] .sh-wiki-thumb-zoom-btn {
+  position: relative; flex: none; gap: 4px; min-height: 32px; margin-top: -6px; padding: 0;
+  border: 0; border-radius: 0; background: none; color: var(--ac); font: inherit; font-size: 13px; font-weight: 400;
+}
+#sheet[data-reader] .sh-wiki-thumb-zoom-btn::after { content: ''; position: absolute; inset: -6px -4px; }
+#sheet[data-reader] .sh-wiki-thumb-zoom-btn:hover { background: none; color: var(--ac); }
+
+/* 7b. Nhiều ảnh: bỏ hộp bọc, mỗi lần 1 ảnh gọn trong lề, vuốt ngang + số đếm + chấm trang */
+#sheet[data-reader] .sh-evidence-showcase { margin: 20px 0 24px; padding: 0; background: none; border: 0; border-radius: 0; }
+#sheet[data-reader] .sh-evidence-showcase-hdr { align-items: baseline; margin: 0 0 10px; padding: 0; border: 0; }
+#sheet[data-reader] .sh-evidence-showcase-title { font-size: 15px; font-weight: 500; letter-spacing: 0; color: var(--text-2); }
+#sheet[data-reader] .sh-evidence-showcase-title svg { display: none; }
+#sheet[data-reader] .sh-evidence-showcase-hint:empty { display: none; }
+#sheet[data-reader] .sh-evidence-showcase-hint { flex: none; font-size: 13px; color: var(--text-3); font-variant-numeric: tabular-nums; }
+#sheet[data-reader] .sh-evidence-strip { display: flex; gap: 0; padding: 0; border-radius: 10px; scrollbar-width: none; overscroll-behavior-x: contain; }
+#sheet[data-reader] .sh-evidence-strip::-webkit-scrollbar { display: none; }
+#sheet[data-reader] .sh-evidence-card,
+#sheet[data-reader] .sh-evidence-single-card {
+  flex: 0 0 100%; max-width: none; min-width: 0; margin: 0; scroll-snap-align: start;
+  background: none; border: 0; border-radius: 0; box-shadow: none; overflow: visible; cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+}
+#sheet[data-reader] .sh-evidence-card:hover,
+#sheet[data-reader] .sh-evidence-single-card:hover { transform: none; box-shadow: none; border-color: transparent; }
+#sheet[data-reader] .sh-evidence-card .sh-evidence-card-img-wrap { aspect-ratio: 4 / 3; }
+#sheet[data-reader] .sh-evidence-card-img-wrap { border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; background: var(--card-alt); }
+#sheet[data-reader] .sh-evidence-card-img-wrap img { object-fit: contain; transition: none; }
+#sheet[data-reader] .sh-evidence-card:hover .sh-evidence-card-img-wrap img,
+#sheet[data-reader] .sh-evidence-single-card:hover .sh-evidence-card-img-wrap img { transform: none; }
+#sheet[data-reader] .sh-evidence-card-badge,
+#sheet[data-reader] .sh-evidence-card-zoom-btn { display: none; }
+#sheet[data-reader] .sh-evidence-card-meta { padding: 8px 0 0; }
+#sheet[data-reader] .sh-evidence-card-name { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--text); margin: 0 0 1px; }
+#sheet[data-reader] .sh-evidence-card-sub { font-size: 13px; line-height: 1.45; color: var(--text-3); }
+#sheet[data-reader] .rd-dots { display: flex; justify-content: center; gap: 6px; margin: 10px 0 0; }
+#sheet[data-reader] .rd-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--hair-strong); transition: background var(--rd-fast) linear; }
+#sheet[data-reader] .rd-dots span.on { background: var(--text-2); }
+
+/* 7c. Màn xem ảnh toàn màn hình: đồng bộ thang chữ */
+.sh-map-lightbox-title { font-weight: 500; }
+.sh-map-lightbox-caption { font-size: 13px; line-height: 1.55; }
+
+@media (prefers-reduced-motion: reduce) {
+  #sheet[data-reader], #sheet[data-reader].show { transition-duration: .01s; }
+  #sheet[data-reader] .sh-wiki-wrap { animation: none; }
+}
+
+
 </style>
 </head>
 <body>
@@ -2757,7 +3021,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 </nav>
 
 <div class="backdrop" id="backdrop"></div>
-<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetBarTitle">
+<div class="sheet" id="sheet" data-reader="b2" role="dialog" aria-modal="true" aria-labelledby="sheetBarTitle">
   <div class="grabber" id="grabber"><span></span></div>
   <div class="sheet-bar" id="sheetBar">
     <button class="sheet-bar-btn" id="sheetBackBtn" aria-label="Quay lại" title="Quay lại" style="display:none;margin-right:8px;flex-shrink:0;">
@@ -2776,7 +3040,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       </button>
     </div>
   </div>
-  <div class="sheet-scroll" id="sheetScroll"></div>
+  <div class="sheet-scroll" id="sheetScroll" tabindex="0" aria-label="Nội dung chi tiết"></div>
 </div>
 
 <!-- SEARCH MODAL OVERLAY (APPLE SPOTLIGHT & MATERIAL 3 SEARCH VIEW) -->
@@ -2799,7 +3063,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
           <button type="button" class="sm-chip" data-query="Quang Trung">Quang Trung</button>
           <button type="button" class="sm-chip" data-query="Hai Bà Trưng">Hai Bà Trưng</button>
           <button type="button" class="sm-chip" data-query="Lê Lợi">Lê Lợi</button>
-          <button type="button" class="sm-chip" data-query="Điện Biên Phủ">Điện Biên Phủ</button>
+          <button type="button" class="sm-chip" data-query="Đông Kinh Nghĩa Thục">Đông Kinh Nghĩa Thục</button>
           <button type="button" class="sm-chip" data-query="Hoàng Sa">Hoàng Sa</button>
           <button type="button" class="sm-chip" data-query="Trần Hưng Đạo">Trần Hưng Đạo</button>
           <button type="button" class="sm-chip" data-query="Nỏ liên châu">Nỏ liên châu</button>
@@ -3339,8 +3603,9 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       if (typeof it === 'string') return '<li>' + parseBadges(it) + '</li>';
       var photoBtn = '';
       if (it.photoId) {
-        var btnText = (it.photoId.indexOf('sung-than-cong') !== -1) ? 'Xem ảnh thần công' : (it.photoId.indexOf('chi-lang') !== -1 ? 'Xem tranh tái hiện' : (it.photoId.indexOf('cot-kinh') !== -1 ? 'Xem ảnh Cột kinh' : 'Xem ảnh hiện vật'));
-        photoBtn = ' <button type="button" class="sh-ev-inline-btn" onclick="openMapLightbox(\'' + esc(it.photoId) + '\')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> ' + btnText + '</button>';
+        var pid = String(it.photoId).toLowerCase();
+        var btnText = (pid.indexOf('sung-than-cong') !== -1) ? 'Xem ảnh thần công' : (pid.indexOf('chi-lang') !== -1 ? 'Xem tranh tái hiện' : (pid.indexOf('cot-kinh') !== -1 ? 'Xem ảnh Cột kinh' : 'Xem ảnh hiện vật'));
+        photoBtn = ' <button type="button" class="sh-ev-inline-btn" onclick="openMapLightbox(\'' + esc(pid) + '\')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> ' + btnText + '</button>';
       }
       return '<li><span class="ev-badge ' + badgeClass(it.label) + '">' + esc(it.label) + '</span> ' + parseBadges(it.text) + photoBtn + '</li>';
     }).join('') + '</ul>';
@@ -3497,7 +3762,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     parsed.forEach(function (p) {
       listHtml += '<div class="sh-wiki-timeline-item">';
       if (p.time) {
-        listHtml += '<span class="sh-t-time">' + esc(p.time) + ':</span>';
+        listHtml += '<span class="sh-t-time">' + esc(p.time) + '</span> ';
       }
       listHtml += parseBadges(p.text);
       listHtml += '</div>';
@@ -3905,16 +4170,27 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
 
     var handleKey = function(e) {
       if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
         window.closeMapLightbox();
-        document.removeEventListener('keydown', handleKey);
       }
     };
     document.addEventListener('keydown', handleKey);
+    window.__currentLbKeyHandler = handleKey;
+
+    setTimeout(function () {
+      var closeBtn = lb.querySelector('.sh-map-lightbox-close');
+      if (closeBtn) closeBtn.focus();
+    }, 30);
   };
 
   window.closeMapLightbox = function() {
     var lb = document.getElementById('mapLightbox');
     if (lb) lb.remove();
+    if (window.__currentLbKeyHandler) {
+      document.removeEventListener('keydown', window.__currentLbKeyHandler);
+      window.__currentLbKeyHandler = null;
+    }
     document.body.style.overflow = '';
   };
 
@@ -5039,7 +5315,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       var bSumFirst = getFirstSentence(x.summary);
       if (bSumFirst) btq += '<p class="sh-summary-p">' + parseBadges(bSumFirst) + '</p>';
 
-      var bRows = shRow('Phía ta', x.ta) +
+      var bRows = shRow('Lực lượng Đại Việt', x.ta) +
                   shRow('Đối phương', x.dich) +
                   (bp ? shRow('Thời kỳ', '<button class="sh-inline-link" data-open="period:' + bp.id + '">' + esc(bp.name) + '</button>') : '');
       if (bRows) btq += '<div class="sh-rows">' + bRows + '</div>';
@@ -5186,7 +5462,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
         L.push('', 'TÀI LIỆU THAM KHẢO: ' + pSrc);
       }
     } else {
-      L.push(x.name + ' (' + x.year + ')', 'Địa điểm: ' + x.place, 'Phía ta: ' + x.ta + ' · Đối phương: ' + x.dich, 'Kết quả: ' + x.result);
+      L.push(x.name + ' (' + x.year + ')', 'Địa điểm: ' + x.place, 'Lực lượng Đại Việt: ' + x.ta + ' · Đối phương: ' + x.dich, 'Kết quả: ' + x.result);
       L.push('', 'DIỄN BIẾN:', x.summary);
       if (x.tactics) L.push('', 'CHIẾN THUẬT:', x.tactics);
       if (x.significance) L.push('', 'Ý NGHĨA:', x.significance);
@@ -5221,51 +5497,185 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     }
   }
 
-  var lastActiveWikiSec = null;
-  function updateScrollSpy() {
-    var sc = $('#sheetScroll');
-    if (!sc) return;
+  /* ===== READER B2 · scroll spy (rAF + cache vị trí) · nhảy mục · đề mục ngắn · infobox gọn · ảnh ===== */
+  var lastActiveWikiSec = null, rdSpy = null, rdRaf = 0, rdLockUntil = 0, rdRO = null;
+  var RD_H2 = {
+    'Tóm lược tầm vóc': 'Tóm lược', 'Thân thế & Bối cảnh thời đại': 'Thân thế & Bối cảnh',
+    'Sự nghiệp quân sự & Tư tưởng tác chiến': 'Sự nghiệp quân sự', 'Sự nghiệp & Dấu ấn lịch sử': 'Sự nghiệp & Dấu ấn',
+    'Khảo biện học thuật & Góc nhìn đa chiều': 'Khảo biện', 'Khảo biện học thuật & Giải ảo sử liệu': 'Khảo biện',
+    'Tọa độ di sản trong lòng dân tộc': 'Di sản', 'Niên biểu hành trình cuộc đời': 'Niên biểu',
+    'Chứng tích thư tịch cổ & Nguồn tham khảo': 'Nguồn sử liệu', 'Chứng tích thư tịch cổ & Nguồn nghiên cứu': 'Nguồn sử liệu',
+    'Dẫn nhập & Tầm vóc thời đại': 'Dẫn nhập', 'Thiết chế nhà nước & Cương vực lãnh thổ': 'Thiết chế & Cương vực',
+    'Thành tựu văn minh, Kinh tế & Văn hóa': 'Thành tựu văn minh', 'Khảo cổ học thực địa & Tọa độ di sản': 'Khảo cổ & Di sản',
+    'Niên biểu lịch sử thời kỳ': 'Niên biểu', 'Tầm vóc & Ý nghĩa chiến lược': 'Tầm vóc',
+    'Bối cảnh lịch sử & Tương quan đối đầu': 'Bối cảnh', 'Diễn biến tác chiến & Nghệ thuật quân sự': 'Diễn biến & Chiến thuật',
+    'Dấu tích thực địa & Tọa độ di sản': 'Dấu tích thực địa', 'Niên biểu diễn tiến chiến sự': 'Niên biểu'
+  };
+  var RD_PILL = { 'wiki-sec-context': 'Bối cảnh', 'wiki-sec-career': 'Sự nghiệp', 'wiki-sec-debates': 'Khảo biện',
+    'wiki-sec-timeline': 'Niên biểu', 'wiki-sec-sources': 'Nguồn', 'wiki-sec-polity': 'Thiết chế',
+    'wiki-sec-history': 'Diễn tiến', 'wiki-sec-achievements': 'Thành tựu', 'wiki-sec-tactics': 'Diễn biến' };
+  function rdOn() { var s = document.getElementById('sheet'); return !!(s && s.hasAttribute('data-reader')); }
+  function rdReduced() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+  function rdEach(root, sel, fn) { Array.prototype.forEach.call(root.querySelectorAll(sel), fn); }
 
-    var scrollTop = sc.scrollTop;
+  function rdEnhance(sc) {
+    if (!rdOn()) return;
+    /* Đề mục H2 ngắn (chỉ đổi phần hiển thị, dữ liệu giữ nguyên) */
+    rdEach(sc, '.sh-wiki-h2-text', function (t) {
+      var full = t.textContent.trim();
+      var s = RD_H2[full] || (full.indexOf('Diễn tiến lịch sử') === 0 ? 'Diễn tiến lịch sử' : null);
+      if (s) { t.setAttribute('title', full); t.textContent = s; }
+    });
+    /* Nhãn mục lục ngắn */
+    rdEach(sc, '.sh-wiki-jump-pill', function (p) {
+      var id = p.getAttribute('data-wiki-jump'), s = RD_PILL[id];
+      if (id === 'wiki-sec-legacy') {
+        var h = sc.querySelector('#wiki-sec-legacy .sh-wiki-h2-text');
+        s = (h && /Dấu tích/.test(h.textContent)) ? 'Dấu tích' : 'Di sản';
+      }
+      if (s) { p.setAttribute('aria-label', p.textContent); p.textContent = s; }
+    });
+    /* Infobox gọn 5 dòng */
+    rdEach(sc, '.sh-wiki-infobox', function (ib) {
+      var rows = ib.querySelectorAll('.sh-wiki-infobox-row');
+      if (rows.length <= 6 || ib.querySelector('.rd-more')) return;
+      ib.classList.add('rd-collapsed');
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'rd-more'; b.setAttribute('aria-expanded', 'false');
+      b.textContent = 'Xem đủ ' + rows.length + ' mục';
+      ib.appendChild(b);
+    });
+    /* Tên di tích dài ở đầu mục chứng tích → dòng đề riêng */
+    rdEach(sc, 'li > .ev-badge:first-child', function (b) {
+      if (b.textContent.trim().length > 14) b.classList.add('rd-term');
+    });
+    /* Ảnh đơn / lược đồ: nút "Toàn cảnh" → "Phóng to" */
+    rdEach(sc, '.sh-wiki-thumb-zoom-btn', function (btn) {
+      var last = btn.lastChild;
+      if (last && last.nodeType === 3) last.nodeValue = 'Phóng to';
+    });
+    /* Nhãn năm trên ảnh → đưa xuống dòng mô tả dưới ảnh (băng nhiều ảnh) */
+    rdEach(sc, '.sh-evidence-card', function (c) {
+      var badge = c.querySelector('.sh-evidence-card-badge'), sub = c.querySelector('.sh-evidence-card-sub');
+      if (badge && sub && !sub.getAttribute('data-rd')) {
+        sub.setAttribute('data-rd', '1');
+        sub.textContent = badge.textContent.trim() + ' · ' + sub.textContent.trim();
+      }
+    });
+    /* Băng ảnh: số đếm "1 / N" + chấm trang */
+    rdEach(sc, '.sh-evidence-showcase', function (sh) {
+      var hint = sh.querySelector('.sh-evidence-showcase-hint');
+      var strip = sh.querySelector('.sh-evidence-strip');
+      var n = strip ? strip.querySelectorAll('.sh-evidence-card').length : 0;
+      if (n < 2) { if (hint) hint.textContent = ''; return; }            // 1 ảnh: bỏ dòng "Chạm để phóng to"
+      if (strip.getAttribute('data-rd')) return;
+      strip.setAttribute('data-rd', '1');
+      var dots = document.createElement('div'); dots.className = 'rd-dots'; dots.setAttribute('aria-hidden', 'true');
+      for (var i = 0; i < n; i++) dots.appendChild(document.createElement('span'));
+      strip.parentNode.insertBefore(dots, strip.nextSibling);
+      var cur = -1, raf = 0;
+      var paint = function () {
+        raf = 0;
+        var k = Math.max(0, Math.min(n - 1, Math.round(strip.scrollLeft / Math.max(1, strip.clientWidth))));
+        if (k === cur) return; cur = k;
+        if (hint) hint.textContent = (k + 1) + ' / ' + n;
+        Array.prototype.forEach.call(dots.children, function (d, j) { d.classList.toggle('on', j === k); });
+      };
+      strip.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(paint); }, { passive: true });
+      paint();
+    });
+  }
 
-    // Header scroll spy: show short name when header scrolled out of view
+  function rdBuild() {
+    var sc = $('#sheetScroll'); if (!sc) return null;
+    var jb = sc.querySelector('#wikiJumpBar');
     var titleEl = sc.querySelector('.sh-title') || sc.querySelector('.sh-wiki-main-title');
-    var barTitle = $('#sheetBarTitle');
-    if (titleEl && barTitle) {
-      var threshold = titleEl.offsetTop + titleEl.offsetHeight;
-      if (scrollTop >= threshold - 6) {
-        barTitle.classList.add('show');
-      } else {
-        barTitle.classList.remove('show');
-      }
-    }
+    var secs = Array.prototype.slice.call(sc.querySelectorAll('.sh-wiki-sec'));
+    var jbH = jb ? jb.offsetHeight : 0;
+    rdSpy = {
+      sc: sc, root: sc.firstElementChild, jb: jb,
+      titleEnd: titleEl ? titleEl.offsetTop + titleEl.offsetHeight : 0,
+      jumpTop: (jb && secs.length) ? secs[0].offsetTop - jbH - (parseFloat(getComputedStyle(jb).marginBottom) || 0) : Infinity,
+      offset: jbH + 12,
+      secs: secs.map(function (s) { return { id: s.id, top: s.offsetTop }; })
+    };
+    return rdSpy;
+  }
 
-    // Wiki Jump Bar scroll spy
-    var jumpBar = sc.querySelector('#wikiJumpBar');
-    if (jumpBar) {
-      var secs = sc.querySelectorAll('.sh-wiki-sec');
-      var activeId = null;
-      secs.forEach(function (sec) {
-        if (sec.offsetTop - 75 <= scrollTop) {
-          activeId = sec.id;
-        }
-      });
-      if (!activeId && secs.length) activeId = secs[0].id;
-      if (activeId && activeId !== lastActiveWikiSec) {
-        lastActiveWikiSec = activeId;
-        var pills = jumpBar.querySelectorAll('.sh-wiki-jump-pill');
-        pills.forEach(function (pill) {
-          var isAct = pill.getAttribute('data-wiki-jump') === activeId;
-          pill.classList.toggle('active', isAct);
-          if (isAct && jumpBar.scrollWidth > jumpBar.clientWidth) {
-            var pillLeft = pill.offsetLeft - jumpBar.offsetLeft;
-            var targetScroll = pillLeft - (jumpBar.clientWidth / 2) + (pill.clientWidth / 2);
-            jumpBar.scrollTo({ left: Math.max(0, targetScroll), behavior: 'smooth' });
-          }
-        });
-      }
+  function rdEnsure(sc) {
+    if (rdSpy && rdSpy.sc === sc && rdSpy.root === sc.firstElementChild) return rdSpy;
+    lastActiveWikiSec = null;
+    rdEnhance(sc);
+    rdBuild();
+    if (rdRO) rdRO.disconnect();
+    if (window.ResizeObserver && rdSpy.root) {
+      rdRO = new ResizeObserver(function () { if (rdSpy && rdSpy.root && rdSpy.root.isConnected) rdBuild(); });
+      rdRO.observe(rdSpy.root);
+    }
+    return rdSpy;
+  }
+
+  function rdSetActive(id, smooth) {
+    if (!rdSpy || !rdSpy.jb || id === lastActiveWikiSec) return;
+    lastActiveWikiSec = id;
+    var act = null;
+    rdEach(rdSpy.jb, '.sh-wiki-jump-pill', function (p) {
+      var on = p.getAttribute('data-wiki-jump') === id;
+      p.classList.toggle('active', on);
+      if (on) { p.setAttribute('aria-current', 'location'); act = p; } else p.removeAttribute('aria-current');
+    });
+    var jb = rdSpy.jb;
+    if (act && jb.scrollWidth > jb.clientWidth) {
+      var left = act.offsetLeft - (jb.clientWidth - act.offsetWidth) / 2;
+      jb.scrollTo({ left: Math.max(0, left), behavior: (smooth && !rdReduced()) ? 'smooth' : 'auto' });
     }
   }
+
+  function updateScrollSpy() {
+    if (rdRaf) return;
+    rdRaf = requestAnimationFrame(function () {
+      rdRaf = 0;
+      var sc = $('#sheetScroll'), sheet = $('#sheet');
+      if (!sc || !sheet) return;
+      var spy = rdEnsure(sc), st = sc.scrollTop;
+      var barTitle = $('#sheetBarTitle');
+      if (barTitle) barTitle.classList.toggle('show', st >= spy.titleEnd - 6);
+      sheet.classList.toggle('is-scrolled', st > 2);
+      sheet.classList.toggle('is-stuck', st >= spy.jumpTop - 1);
+      if (!spy.jb || !spy.secs.length || Date.now() < rdLockUntil) return;
+      var id = spy.secs[0].id;
+      for (var i = 0; i < spy.secs.length; i++) {
+        if (spy.secs[i].top - spy.offset <= st + 1) id = spy.secs[i].id; else break;
+      }
+      if (st + sc.clientHeight >= sc.scrollHeight - 4) id = spy.secs[spy.secs.length - 1].id;   // chạm đáy: mục cuối
+      rdSetActive(id, true);
+    });
+  }
+
+  function rdJump(id) {
+    var sc = $('#sheetScroll'); if (!sc) return;
+    var spy = rdEnsure(sc);
+    var sec = sc.querySelector('#' + id); if (!sec) return;
+    var top = Math.max(0, Math.min(sec.offsetTop - spy.offset + 4, sc.scrollHeight - sc.clientHeight));
+    rdSetActive(id, true);
+    rdLockUntil = Date.now() + 900;                                  // khoá spy khi đang cuộn → pill không nhấp nháy
+    var unlock = function () { rdLockUntil = 0; sc.removeEventListener('scrollend', unlock); updateScrollSpy(); };
+    if ('onscrollend' in window) sc.addEventListener('scrollend', unlock);
+    sc.scrollTo({ top: top, behavior: rdReduced() ? 'auto' : 'smooth' });
+  }
+
+  /* Nút "Xem đủ N mục" của infobox (chạy trước listener của document) */
+  (function () {
+    var sc = document.getElementById('sheetScroll'); if (!sc) return;
+    sc.addEventListener('click', function (e) {
+      var more = e.target.closest('.rd-more'); if (!more) return;
+      var ib = more.closest('.sh-wiki-infobox');
+      var open = ib.classList.toggle('rd-collapsed') === false;
+      more.setAttribute('aria-expanded', open ? 'true' : 'false');
+      more.textContent = open ? 'Thu gọn' : 'Xem đủ ' + ib.querySelectorAll('.sh-wiki-infobox-row').length + ' mục';
+      e.stopPropagation();
+    }, false);
+  })();
 
   var sheetStack = [];
 
@@ -5376,7 +5786,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       ].join('');
     } else {
       title = 'Hướng Dẫn Tra Cứu Sử Liệu';
-      sub = 'Khai thác tối đa chuẩn Bách khoa Toàn thư Editorial &amp; Wikilinks';
+      sub = 'Khai thác tối đa chuẩn Bách khoa Toàn thư Editorial & Wikilinks';
       content = [
         '<div class="sh-essay-flow" style="margin-top:16px;">',
         '  <div class="sh-essay-card">',
@@ -5395,8 +5805,8 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
         '    </p>',
         '  </div>',
         '  <div class="sh-essay-card">',
-        '    <div class="sh-essay-topic">4. Tra Cứu Chéo Đa Chiều (Wikilinks Mực Lam)</div>',
-        '    <p class="sh-narrative-p">Chạm vào bất kỳ danh xưng nào mang <strong>màu Mực Lam Cổ</strong> (tướng lĩnh, chiến trận, thời kỳ) để mở ngay thẻ thông tin liên quan. Nút lùi trang ở góc trên giúp bạn quay lại đúng ngăn xếp đọc trước đó.</p>',
+        '    <div class="sh-essay-topic">4. Tra Cứu Chéo Đa Chiều (Wikilinks Đỏ Son)</div>',
+        '    <p class="sh-narrative-p">Chạm vào bất kỳ danh xưng nào mang <strong>màu đỏ son</strong> (tướng lĩnh, chiến trận, thời kỳ) để mở ngay thẻ thông tin liên quan. Nút lùi trang ở góc trên giúp bạn quay lại đúng ngăn xếp đọc trước đó.</p>',
         '  </div>',
         '  <div class="sh-essay-card">',
         '    <div class="sh-essay-topic">5. Khảo Biện Học Thuật &amp; Tọa Độ Di Sản</div>',
@@ -5477,10 +5887,24 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       if (!active) return;
       active = false;
       if (!moved) return;
-      var v = velocity();
+      var v = velocity(), h = H(), reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       sheet.classList.remove('dragging'); bd.classList.remove('dragging');
-      if (dy > H() * 0.28 || (v > 0.45 && dy > 24)) closeSheet();
-      else { sheet.style.transform = ''; bd.style.opacity = ''; }
+      if (dy > h * 0.28 || (v > 0.45 && dy > 24)) {
+        /* [READER v2] Vuốt mạnh đóng nhanh: thời lượng theo vận tốc ngón tay (0,16–0,28s) */
+        var dur = reduce ? 0.01 : Math.min(0.28, Math.max(0.16, (h - Math.max(0, dy)) / Math.max(v, 1.2) / 1000));
+        sheet.style.transitionDuration = dur + 's';
+        bd.style.transition = 'opacity ' + dur + 's linear';
+        closeSheet();
+        setTimeout(function () { sheet.style.transitionDuration = ''; bd.style.transition = ''; }, dur * 1000 + 80);
+      } else {
+        /* [READER v2] Thả tay chưa đủ ngưỡng: bật về với độ nảy nhẹ kiểu iOS */
+        if (!reduce) {
+          sheet.style.transitionDuration = '.34s';
+          sheet.style.transitionTimingFunction = 'cubic-bezier(.2, .9, .25, 1.08)';
+          setTimeout(function () { sheet.style.transitionDuration = ''; sheet.style.transitionTimingFunction = ''; }, 380);
+        }
+        sheet.style.transform = ''; bd.style.opacity = '';
+      }
     }
     $('#grabber').addEventListener('touchstart', function (e) { start(e, true); }, { passive: true });
     $('#sheetBar').addEventListener('touchstart', function (e) { start(e, true); }, { passive: true });
@@ -5628,18 +6052,7 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     var l = e.target.closest('[data-open]');
     if (l) { openSheet(l.getAttribute('data-open')); return; }
     var wikiJumpBtn = e.target.closest('[data-wiki-jump]');
-    if (wikiJumpBtn) {
-      var targetSecId = wikiJumpBtn.getAttribute('data-wiki-jump');
-      var sc = $('#sheetScroll');
-      if (sc) {
-        var secEl = sc.querySelector('#' + targetSecId);
-        if (secEl) {
-          var topPos = secEl.offsetTop - 52;
-          sc.scrollTo({ top: Math.max(0, topPos), behavior: 'smooth' });
-        }
-      }
-      return;
-    }
+    if (wikiJumpBtn) { rdJump(wikiJumpBtn.getAttribute('data-wiki-jump')); return; }
     var tocBtn = e.target.closest('[data-target]');
     if (tocBtn) {
       var targetId = tocBtn.getAttribute('data-target');
@@ -6000,6 +6413,8 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     window.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         if (searchModal && searchModal.classList.contains('show')) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
           closeSearchModal();
           return;
         }
@@ -6330,12 +6745,27 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     });
   }
 
-  // Keyboard Escape closes topmost modal only
+  // Keyboard Escape closes topmost modal only (LIFO order)
   window.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
+      var lb = document.getElementById('mapLightbox');
+      if (lb) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        window.closeMapLightbox();
+        return;
+      }
       var modal = $('#appInstallModal');
       if (modal && modal.classList.contains('show')) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
         closeInstallModal(false);
+        return;
+      }
+      if (typeof searchModal !== 'undefined' && searchModal && searchModal.classList.contains('show')) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        closeSearchModal();
         return;
       }
       if ($('#sheet') && $('#sheet').classList.contains('show')) {
