@@ -5920,6 +5920,15 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
     return rdSpy;
   }
 
+  function rdInvalidateCache() {
+    try {
+      rdSpy = null;
+      return rdBuild();
+    } catch (e) {
+      return null;
+    }
+  }
+
   function rdEnsure(sc) {
     if (rdSpy && rdSpy.sc === sc && rdSpy.root === sc.firstElementChild) return rdSpy;
     lastActiveWikiSec = null;
@@ -5997,6 +6006,8 @@ body.locked .toast { bottom: calc(var(--safe-b) + 24px); }
       var open = ib.classList.toggle('rd-collapsed') === false;
       more.setAttribute('aria-expanded', open ? 'true' : 'false');
       more.textContent = open ? 'Thu gọn' : 'Xem đủ ' + ib.querySelectorAll('.sh-wiki-infobox-row').length + ' mục';
+      rdInvalidateCache();
+      updateScrollSpy();
       e.stopPropagation();
     }, false);
   })();
